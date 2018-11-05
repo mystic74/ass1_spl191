@@ -46,6 +46,10 @@ std::vector<Dish>& Restaurant::getMenu()
 void Restaurant::start()
 {
     std::cout << "Resturant is now open!" << std::endl;
+
+    std::cout << "Resturant is now open!" << std::endl;
+
+
 }
 
 
