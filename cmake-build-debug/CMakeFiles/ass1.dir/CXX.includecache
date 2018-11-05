@@ -6,12 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/home/tom/projects/ass1/Main.cpp
-include/Restaurant.h
-/home/tom/projects/ass1/include/Restaurant.h
-iostream
--
-
 /home/tom/projects/ass1/include/Action.h
 string
 -
