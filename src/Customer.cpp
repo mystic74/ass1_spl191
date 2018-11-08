@@ -25,12 +25,6 @@ int Customer::getId() const
 
 
 
-VegetarianCustomer(std::string &c_name, int c_id)
-        : Customer(c_name, c_id)
-{
-
-}
-
 std::string VegetarianCustomer::toString() const
 {
     return std::__cxx11::string();
