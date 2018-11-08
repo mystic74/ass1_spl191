@@ -20,9 +20,8 @@ Restaurant::Restaurant(const std::string &configFilePath)
 const std::vector<BaseAction*>& Restaurant::getActionsLog() const
 {
     throw std::runtime_error("Not implemented");
-    std::vector<BaseAction*> a =  new std::vector<BaseAction*>;
 
-    return &a;
+    return this->actionsLog;
 }
 
 int Restaurant::getNumOfTables() const
@@ -34,13 +33,13 @@ int Restaurant::getNumOfTables() const
 Table* Restaurant::getTable(int ind)
 {
     throw std::runtime_error("error");
-    return std::nullptr;
+    return nullptr;
 }
 
 std::vector<Dish>& Restaurant::getMenu()
 {
     throw std::runtime_error("error");
-    return std::nullptr;
+    return this->menu;
 }
 
 void Restaurant::start()

@@ -6,10 +6,11 @@ set(CMAKE_CXX_STANDARD 14)
 include_directories(.)
 
 add_executable(ass1
+        src/Customer.cpp
         src/Restaurant.cpp
         include/Action.h
         include/Customer.h
         include/Dish.h
         Main.cpp
         include/Restaurant.h
-        include/Table.h)
+        include/Table.h src/Dish.cpp src/Table.cpp src/Action.cpp)
