@@ -1,16 +1,23 @@
 cmake_minimum_required(VERSION 3.12)
 project(ass1)
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
+
+set(CMAKE_CXX_FLAGS_DEBUG "-g3")
+
+set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Werror")
 
 include_directories(.)
 
 add_executable(ass1
-        src/Customer.cpp
-        src/Restaurant.cpp
         include/Action.h
         include/Customer.h
         include/Dish.h
-        Main.cpp
         include/Restaurant.h
-        include/Table.h src/Dish.cpp src/Table.cpp src/Action.cpp)
+        include/Table.h
+        src/Customer.cpp
+        src/Restaurant.cpp
+        src/Dish.cpp
+        src/Table.cpp
+        src/Action.cpp
+        Main.cpp)
