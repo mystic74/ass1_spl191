@@ -4,28 +4,43 @@
 
 #include <include/Table.h>
 
-Table::Table(int t_capacity)
+Table::Table(int t_capacity) : capacity(t_capacity)
 {
 
 }
 
 int Table::getCapacity() const
 {
-    return 0;
+    return this->capacity;
 }
 
 void Table::addCustomer(Customer *customer)
 {
-
+    // Should we really add to the beginning of the list?
+    this->customersList.insert(this->customersList.begin(),customer);
 }
 
 void Table::removeCustomer(int id)
 {
+    for (int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
+    {
+        if (this->customersList[nIndex]->getId() == id)
+        {
+            this->customersList.erase(this->customersList.begin() + nIndex);
+        }
 
+    }
 }
 
-Customer *Table::getCustomer(int id)
+Customer* Table::getCustomer(int id)
 {
+    for (int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
+    {
+        if (this->customersList[nIndex]->getId() == id)
+        {
+            return this->customersList[nIndex];
+        }
+    }
     return nullptr;
 }
 
@@ -61,5 +76,5 @@ int Table::getBill()
 
 bool Table::isOpen()
 {
-    return false;
+    return this->open;
 }

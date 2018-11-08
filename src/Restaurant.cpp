@@ -26,29 +26,30 @@ const std::vector<BaseAction*>& Restaurant::getActionsLog() const
 
 int Restaurant::getNumOfTables() const
 {
-    throw std::runtime_error("error");
-    return 1;
+    this->tables.size();
 }
 
 Table* Restaurant::getTable(int ind)
 {
-    throw std::runtime_error("error");
-    return nullptr;
+   if ((ind > this->tables.size()) || (ind < 0))
+   {
+       return nullptr;
+   }
+   else
+   {
+       return this->tables[ind];
+   }
+
 }
 
 std::vector<Dish>& Restaurant::getMenu()
 {
-    throw std::runtime_error("error");
     return this->menu;
 }
 
 void Restaurant::start()
 {
     std::cout << "Resturant is now open!" << std::endl;
-
-    std::cout << "Resturant is now open!" << std::endl;
-
-
 }
 
 
