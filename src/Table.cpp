@@ -11,7 +11,7 @@ Table::Table(int t_capacity)
 
 int Table::getCapacity() const
 {
-    return 0;
+    return 1;
 }
 
 void Table::addCustomer(Customer *customer)
