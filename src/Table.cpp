@@ -19,10 +19,15 @@ void Table::addCustomer(Customer *customer)
 
 }
 
+
+///
+/// \return
+/// \param id
 void Table::removeCustomer(int id)
 {
 
 }
+
 
 Customer *Table::getCustomer(int id)
 {

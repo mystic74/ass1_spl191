@@ -13,6 +13,14 @@ Dish::Dish(int d_id, std::string d_name, int d_price, DishType d_type) : id(d_id
 
 }
 
+Dish::~Dish()
+{
+
+}
+
+
+
+
 int Dish::getId() const
 {
     return this->id;
