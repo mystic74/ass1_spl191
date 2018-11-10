@@ -20,4 +20,7 @@ add_executable(ass1
         src/Dish.cpp
         src/Table.cpp
         src/Action.cpp
-        Main.cpp)
+        Main.cpp
+        src/IO/File.cpp
+        src/IO/File.h
+        src/IO/MyString.h)

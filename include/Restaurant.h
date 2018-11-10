@@ -1,6 +1,14 @@
 #ifndef RESTAURANT_H_
 #define RESTAURANT_H_
 
+enum FILE_PARAMS
+{
+    AMOUNT_OF_TABLES,
+    TABLES_DESCRIPTION,
+    MENU,
+    NUM_OF_PARAMS
+};
+
 #include <vector>
 #include <string>
 #include "Dish.h"
@@ -23,6 +31,9 @@ private:
     std::vector<Table*> tables;
     std::vector<Dish> menu;
     std::vector<BaseAction*> actionsLog;
+
+    int nNumOfTables = 0;
+    bool params_set[NUM_OF_PARAMS];
 };
 
 #endif
