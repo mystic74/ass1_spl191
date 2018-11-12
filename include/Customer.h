@@ -5,6 +5,17 @@
 #include <string>
 #include "Dish.h"
 
+
+
+// Weird name, trying to avoid coupling for Dish and Customer
+enum CustomerType{
+	CUST_VEG,
+	CUST_SPC,
+	CUST_BVG,
+	CUST_ALC,
+	CUST_INVALID
+};
+
 class Customer{
 public:
     Customer(std::string c_name, int c_id);
@@ -12,9 +23,12 @@ public:
     virtual std::string toString() const = 0;
     std::string getName() const;
     int getId() const;
+	const static std::string enumToString(const CustomerType  nNum);
+	const static CustomerType stringToEnum(const std::string strName);
 private:
     const std::string name;
     const int id;
+	const static std::string strCustomerType[4];
 };
 
 

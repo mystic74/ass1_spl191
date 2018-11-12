@@ -11,6 +11,7 @@
 #include "IO/MyString.h"
 #include <cassert>
 
+#include <iostream>
 Restaurant::Restaurant()
 {
     throw std::runtime_error("error");
@@ -107,6 +108,13 @@ std::vector<Dish>& Restaurant::getMenu()
 void Restaurant::start()
 {
     std::cout << "Resturant is now open!" << std::endl;
+
+
+    std::string strInput;
+
+    std::cin >> strInput;
+
+
 }
 
 

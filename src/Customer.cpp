@@ -6,6 +6,7 @@
 
 #include "../include/Customer.h"
 
+const std::string Customer::strCustomerType[4] = {"VEG","SPC","BVG","ALC"};
 
 Customer::Customer(std::string c_name, int c_id) : name(c_name),
                                                    id(c_id)
@@ -23,6 +24,25 @@ int Customer::getId() const
     return this->id;
 }
 
+
+const std::string Customer::enumToString(const CustomerType nNum)
+{
+    return Customer::strCustomerType[nNum];
+}
+
+const CustomerType Customer::stringToEnum(const std::string strName)
+{
+    for (int i = 0; i < sizeof(Customer::strCustomerType); ++i)
+    {
+        if (strName == Customer::strCustomerType[i])
+        {
+            return (static_cast<CustomerType >(i));
+        }
+
+    }
+
+    return CUST_INVALID;
+}
 
 
 std::string VegetarianCustomer::toString() const

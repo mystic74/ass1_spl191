@@ -23,4 +23,4 @@ add_executable(ass1
         Main.cpp
         src/IO/File.cpp
         src/IO/File.h
-        src/IO/MyString.h)
+        src/IO/MyString.h src/ActionFactory.cpp)
