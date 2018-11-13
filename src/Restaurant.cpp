@@ -8,7 +8,9 @@
 
 Restaurant::Restaurant():
 {
-    throw std::runtime_error("error");
+    std:: vector <Table*> tables;
+    std:: vector <Dish> manu;
+    std::vector<BaseAction*> actionslog;
 }
 
 Restaurant::Restaurant(const std::string &configFilePath)
@@ -17,27 +19,60 @@ Restaurant::Restaurant(const std::string &configFilePath)
 }
 
 
+//copy constructor
 Restaurant::Restaurant(const Restaurant& a_Restaurant)
 {
+
+    this->copy(a_Restaurant);
+}
+
+//destructor
+Restaurant:: ~Restaurant(){
+   clear();
+
+}
+
+Restaurant & Restaurant::operator=(const Restaurant & a_Restaurant)
+{
+    if (this==&a_Restaurant){
+        return *this;
+    }
+    clear();
+    this->copy(a_Restaurant);
+    return *this;
+
+
+}
+
+
+
+void Restaurant:: copy(const Restaurant & a_Restaurant)
+{
+
+    std:: vector <Table*> tables;
+    std:: vector <Dish> manu;
+    std::vector<BaseAction*> actionslog;
+
     for (int i=0; i<a_Restaurant.getNumOfTables(); i++)
     {
-        tables[i]=a_Restaurant.getTable(i);
+        tables[i] = a_Restaurant.getTable(i);
     }
-    for (int i=0;i<a_Restaurant.getNumOfDishes();i++)
+    for (int i=0;i<.a_Restaurnt.getNumOfDishes();i++)
     {
         menu[i]=a_Restaurant.getDish(i);
     }
-
+    for (int i=0;i<.a_Restaurnt.getNumOfActionlog();i++)
+    {
+        actionsLog[i]=a_Restaurant.getActionsLog()[i];
+    }
 }
 
-Restaurant:: ~Restaurant(){
-delete_tables();
-delete_menu();
-delete_actionlog();
-
+void Restaurant:: clear()
+{
+    delete_tables();
+    delete_menu();
+    delete_actionlog();
 }
-
-
 
 void Restaurant::delete_tables()
 {
@@ -70,9 +105,8 @@ void Restaurant::delete_actionlog()
 
 const std::vector<BaseAction*>& Restaurant::getActionsLog() const
 {
-    throw std::runtime_error("Not implemented");
-
     return this->actionsLog;
+
 }
 
 int Restaurant::getNumOfDishes() const
@@ -82,14 +116,17 @@ int Restaurant::getNumOfDishes() const
 
 int Restaurant::getNumOfTables() const
 {
-    int size=this->tables .size();
-    return size;
-//    throw std::runtime_error("error");
+    return this->tables .size();
+}
+
+int Restaurant:: getNumOfActionlog() const
+{
+    return this->actionsLog.size();
 
 }
 
 
-Dish* Restautant::getDish(int ind)
+Dish* Restaurant::getDish(int ind)
 {
     if (this->menu.empty())
     {

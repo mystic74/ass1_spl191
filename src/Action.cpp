@@ -11,22 +11,23 @@ BaseAction::BaseAction()
 
 ActionStatus BaseAction::getStatus() const
 {
-    return COMPLETED;
+    return this->status;
 }
 
 void BaseAction::complete()
 {
-
+    this->status=COMPLETED;
 }
 
 void BaseAction::error(std::string errorMsg)
 {
-
+    this->status=ERROR;
+    this->errorMsg=errorMsg;
 }
 
 std::string BaseAction::getErrorMsg() const
 {
-    return std::__cxx11::string();
+    return this->errorMsg;
 }
 
 

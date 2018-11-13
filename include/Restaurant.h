@@ -15,13 +15,17 @@ public:
     void start();
 	Restaurant(const Restaurant& a_Restaurant);
     ~Restaurant();
+    Restaurant & operator=(const Restaurant & a_Restaurant);
     int getNumOfTables() const;
 	int getNumOfDishes() const;
+	int getNumOfActionlog() const;
 	Table* getTable(int ind);
 	Dish* getDish(int ind);
 	const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
     std::vector<Dish>& getMenu();
-	void delete_tables();
+    void copy(const Restaurant & a_Restaurant);
+    void clear();
+    void delete_tables();
 	void delete_menu();
 	void delete_actionlog();
 

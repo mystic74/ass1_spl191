@@ -15,6 +15,9 @@ public:
 private:
     const std::string name;
     const int id;
+protected:
+    bool ordered;
+    std:: vector<int> order_list;
 };
 
 
