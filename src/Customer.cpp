@@ -26,7 +26,10 @@ int Customer::getId() const
     return this->id;
 }
 
-
+std:: vector<int> Customer:: getOrderList()const
+{
+    return this->order_list;
+}
 
 VegetarianCustomer(std::string &c_name, int c_id) : Customer(c_name, c_id)
 {

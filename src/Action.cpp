@@ -102,10 +102,39 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  srcTable(src),
 
 }
 
+
+//need to finish
 void MoveCustomer::act(Restaurant &restaurant)
 {
+    int cost=0;
+    Customer* customerToMove= nullptr;
+    //origin or destination tables doesnt exist
+    if (restaurant.getTable(srcTable)== nullptr|restaurant.getTable(dstTable)== nullptr)
+        this->error("cannot move customer");
+    else
+        //origin or destination tables closed
+        if (!restaurant.getTable(srcTable)->isOpen()|!restaurant.getTable(dstTable)->isOpen());
+    else
+        //destination tables has no available seats
+        if (restaurant.getTable(dstTable)->getCapacity()<=restaurant.getTable(dstTable)->getCustomers().size())
+            this->error("cannot move customer");
+    else
+        {
+            for (auto customer :restaurant.getTable(srcTable)->getCustomers())
+                if (customer->getId()==id)
+                    customerToMove=customer;
+                if (customerToMove== nullptr)
+                    this->error("cannot move customer");
+            std:: vector<int> customerOrder=customerToMove->getOrderList();
+            for (auto dish:customerOrder)
+                cost=cost+getDishFromId(dish,restaurant.getMenu()).getPrice();
 
+        }
+
+    ///need to move the bill and the customer to the dst table
 }
+
+
 
 std::string MoveCustomer::toString() const
 {
@@ -125,4 +154,14 @@ void Close::act(Restaurant &restaurant)
 std::string Close::toString() const
 {
     return std::__cxx11::string();
+}
+
+
+
+Dish BaseAction:: getDishFromId(int DishId,std:: vector<Dish>menu)
+{
+    for (auto dish:menu)
+        if (dish.getId()==DishId)
+            return dish;
+    throw std:: runtime_error("dish does not exist in the menu");
 }
