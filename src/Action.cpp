@@ -3,6 +3,8 @@
 **/
 
 #include <include/Action.h>
+#include <include/Restaurant.h>
+#include <Res>
 
 BaseAction::BaseAction()
 {
@@ -40,11 +42,25 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  tableId(
 void OpenTable::act(Restaurant &restaurant)
 {
 
+    if (restaurant.getTable(tableId)== nullptr||restaurant.getTable(tableId)->isOpen())
+        this->error("Table does not exist or already open");
+    else
+        restaurant.getTable(tableId)->openTable();
+        for (auto custumer : customers)
+            restaurant.getTable(tableId)->addCustomer(custumer);
 }
 
 std::string OpenTable::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+    if (this->getStatus()==COMPLETED)
+        stat="COMPLETED";
+    else
+        if (this->getStatus()==ERROR)
+            stat="ERROR: "+this->getErrorMsg();
+    else
+        stat="Pending";
+    return stat;
 }
 
 Order::Order(int id) : tableId(id)
@@ -54,12 +70,29 @@ Order::Order(int id) : tableId(id)
 
 void Order::act(Restaurant &restaurant)
 {
+    if (restaurant.getTable(tableId)== nullptr||!(restaurant.getTable(tableId)->isOpen()))
+        this->error("Table does not exist or isn't open");
+    std:: vector<Customer*> table_customers= restaurant.getTable(tableId)->getCustomers();
+    for (auto customer: table_customers )
+        customer->order(restaurant.getMenu());
+        //need to add a order list
 
 }
 
 std::string Order::toString() const
 {
-    return std::__cxx11::string();
+    {
+        std:: string stat;
+        if (this->getStatus()==COMPLETED)
+            stat="COMPLETED";
+        else
+            if (this->getStatus()==ERROR)
+                stat="ERROR: "+this->getErrorMsg();
+        else
+            stat="Pending";
+        return stat;
+    }
+
 }
 
 MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  srcTable(src),

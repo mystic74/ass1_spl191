@@ -4,33 +4,40 @@
 
 #include <include/Table.h>
 
-Table::Table(int t_capacity)
+Table::Table(int t_capacity):capacity(t_capacity)
+                            , open(true)
 {
+    customersList(new std:: vector<Customer*>);
+    orderList(new std:: vector<OrderPair>);
 
 }
 
 int Table::getCapacity() const
 {
-    return 1;
+    return this->capacity;
 }
 
 void Table::addCustomer(Customer *customer)
 {
-
+    if (customersList.size()<capacity)
+        this->customersList.push_back(customer);
 }
 
 
-///
-/// \return
-/// \param id
+
 void Table::removeCustomer(int id)
 {
-
+    for (int i=0;i<customersList.size();i++)
+        if (customersList[i]->getId()==id)
+            customersList.erase(customersList.begin()+i);
 }
 
 
 Customer *Table::getCustomer(int id)
 {
+    for (auto customer: customersList)
+        if (customer->getId()==id)
+            return customer;
     return nullptr;
 }
 
@@ -51,20 +58,23 @@ void Table::order(const std::vector<Dish> &menu)
 
 void Table::openTable()
 {
-
+    open=true;
 }
 
 void Table::closeTable()
 {
-
+    open=false;
 }
 
 int Table::getBill()
 {
-    return 0;
+    int bill=0;
+    for (auto order:orderList)
+        bill=bill+order.second.getPrice();
+    return bill;
 }
 
 bool Table::isOpen()
 {
-    return false;
+    return this->open;
 }

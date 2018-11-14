@@ -6,5 +6,5 @@ CXX_FLAGS = -g   -std=gnu++14
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/tom/projects/ass1/. 
+CXX_INCLUDES = -I/home/rachel/CLionProjects/ass1_spl191/. 
 

@@ -138,7 +138,7 @@ Dish* Restaurant::getDish(int ind)
 
 Table* Restaurant::getTable(int ind)
 {
-    if (this->tables.empty())
+    if (this->tables.empty()|tables.size()<=ind)
     {
         return nullptr;
     }

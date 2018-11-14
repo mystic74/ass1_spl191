@@ -13,7 +13,7 @@ Customer::Customer(std::string c_name, int c_id) :  id(c_id)
                                                  ,  ordered(false)
 
 {
-    std:: vector<int> order_list;
+
 }
 
 std::string Customer::getName() const
