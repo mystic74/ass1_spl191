@@ -10,8 +10,8 @@
 // Weird name, trying to avoid coupling for Dish and Customer
 enum CustomerType{
 	CUST_VEG,
+    CUST_CHP,
 	CUST_SPC,
-	CUST_BVG,
 	CUST_ALC,
 	CUST_INVALID
 };
@@ -24,7 +24,7 @@ public:
     std::string getName() const;
     int getId() const;
 	const static std::string enumToString(const CustomerType  nNum);
-	const static CustomerType stringToEnum(const std::string strName);
+	const static CustomerType stringToEnum(std::string strName);
 private:
     const std::string name;
     const int id;

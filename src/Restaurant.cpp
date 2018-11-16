@@ -4,20 +4,18 @@
 
 #include "../include/Restaurant.h"
 #include "IO/File.h"
-#include <cstdio>
-#include <iostream>
-#include <fstream>
-
+#include <include/ActionFactory.h>
 #include "IO/MyString.h"
-#include <cassert>
+#include <assert.h>
 
-#include <iostream>
+int Restaurant::customer_id;
+
 Restaurant::Restaurant()
 {
-    throw std::runtime_error("error");
+    Restaurant::customer_id = 0;
 }
 
-Restaurant::Restaurant(const std::string &configFilePath) : params_set{false}
+Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 {
     std::ifstream configFile(configFilePath, std::ios::binary);
     std::string cur_line;
@@ -69,7 +67,6 @@ Restaurant::Restaurant(const std::string &configFilePath) : params_set{false}
 
 
             }
-
         }
     }
 
@@ -112,7 +109,11 @@ void Restaurant::start()
 
     std::string strInput;
 
-    std::cin >> strInput;
+    std::getline(std::cin, strInput);
+
+    LimitedFactory a;
+    a.generateAction(strInput);
+
 
 
 }

@@ -3,10 +3,11 @@
 */
 
 #include <include/Customer.h>
-
+#include <algorithm>
+#include <string>
 #include "../include/Customer.h"
 
-const std::string Customer::strCustomerType[4] = {"VEG","SPC","BVG","ALC"};
+const std::string Customer::strCustomerType[4] = {"VEG","CHP","SPC","ALC"};
 
 Customer::Customer(std::string c_name, int c_id) : name(c_name),
                                                    id(c_id)
@@ -30,8 +31,10 @@ const std::string Customer::enumToString(const CustomerType nNum)
     return Customer::strCustomerType[nNum];
 }
 
-const CustomerType Customer::stringToEnum(const std::string strName)
+const CustomerType Customer::stringToEnum(std::string strName)
 {
+    std::transform(strName.begin(), strName.end(),strName.begin(), ::toupper);
+
     for (int i = 0; i < sizeof(Customer::strCustomerType); ++i)
     {
         if (strName == Customer::strCustomerType[i])

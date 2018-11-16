@@ -26,6 +26,8 @@ public:
 	const std::vector<BaseAction*>& getActionsLog() const; // Return a reference to the history of actions
     std::vector<Dish>& getMenu();
 
+    static int customer_id;
+
 private:
     bool open;
     std::vector<Table*> tables;
