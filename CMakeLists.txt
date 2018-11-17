@@ -10,11 +10,6 @@ set(CMAKE_CXX_FLAGS_RELEASE "-Wall -Werror")
 include_directories(.)
 
 add_executable(ass1
-        include/Action.h
-        include/Customer.h
-        include/Dish.h
-        include/Restaurant.h
-        include/Table.h
         src/Customer.cpp
         src/Restaurant.cpp
         src/Dish.cpp
