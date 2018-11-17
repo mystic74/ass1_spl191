@@ -1,12 +1,12 @@
 /*
 * Created by tom on 08/11/18.
 **/
-
+#include <include/Restaurant.h>
 #include <include/Action.h>
 
 BaseAction::BaseAction()
 {
-
+    this->status = PENDING;
 }
 
 ActionStatus BaseAction::getStatus() const
@@ -34,7 +34,8 @@ std::string BaseAction::getErrorMsg() const
 }
 
 
-OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  tableId(id),
+OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  BaseAction(),
+                                                                        tableId(id),
                                                                         customers(customersList)
 {
 
@@ -42,7 +43,6 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  tableId(
 
 void OpenTable::act(Restaurant &restaurant)
 {
-
 }
 
 std::string OpenTable::toString() const
@@ -50,7 +50,12 @@ std::string OpenTable::toString() const
     return std::__cxx11::string();
 }
 
-Order::Order(int id) : tableId(id)
+
+
+/// Generating Order
+/// \param id The id for the table which takes orders
+Order::Order(int id) :  BaseAction(),
+                        tableId(id)
 {
 
 }
@@ -65,7 +70,13 @@ std::string Order::toString() const
     return std::__cxx11::string();
 }
 
-MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  srcTable(src),
+
+/// Moves a customer from one table to the other
+/// \param src The source table
+/// \param dst The destination table
+/// \param customerId The customer moving
+MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  BaseAction(),
+                                                                srcTable(src),
                                                                 dstTable(dst),
                                                                 id(customerId)
 {
@@ -82,7 +93,11 @@ std::string MoveCustomer::toString() const
     return std::__cxx11::string();
 }
 
-Close::Close(int id) : tableId(id)
+
+/// Close a table
+/// \param id The table that we close
+Close::Close(int id) :  BaseAction(),
+                        tableId(id)
 {
 
 }
@@ -97,7 +112,11 @@ std::string Close::toString() const
     return std::__cxx11::string();
 }
 
-PrintActionsLog::PrintActionsLog()
+/*
+ * Prints the log for the entire table
+ *
+*/
+PrintActionsLog::PrintActionsLog() : BaseAction()
 {
 
 }
@@ -111,8 +130,10 @@ std::string PrintActionsLog::toString() const
 {
     return std::__cxx11::string();
 }
-
-BackupRestaurant::BackupRestaurant()
+/**
+ * Backups a restaurant
+ * */
+BackupRestaurant::BackupRestaurant() : BaseAction()
 {
 
 }
@@ -127,7 +148,10 @@ std::string BackupRestaurant::toString() const
     return std::__cxx11::string();
 }
 
-RestoreResturant::RestoreResturant()
+/**
+ * Restores a restuarant from backup
+ * */
+RestoreResturant::RestoreResturant() : BaseAction()
 {
 
 }
@@ -138,6 +162,58 @@ void RestoreResturant::act(Restaurant &restaurant)
 }
 
 std::string RestoreResturant::toString() const
+{
+    return std::__cxx11::string();
+}
+
+/**
+ * Prints a current status for a table.
+ * @param id The id for the table whos status will be printed
+ * */
+PrintTableStatus::PrintTableStatus(int id) :    BaseAction(),
+                                                tableId(id)
+{
+
+}
+
+void PrintTableStatus::act(Restaurant &restaurant)
+{
+
+}
+
+std::string PrintTableStatus::toString() const
+{
+    return std::__cxx11::string();
+}
+
+/// Close all tables
+CloseAll::CloseAll() : BaseAction()
+{
+
+}
+
+void CloseAll::act(Restaurant &restaurant)
+{
+
+}
+
+std::string CloseAll::toString() const
+{
+    return std::__cxx11::string();
+}
+
+/// Prints the menu
+PrintMenu::PrintMenu() : BaseAction()
+{
+
+}
+
+void PrintMenu::act(Restaurant &restaurant)
+{
+
+}
+
+std::string PrintMenu::toString() const
 {
     return std::__cxx11::string();
 }

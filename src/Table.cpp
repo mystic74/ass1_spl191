@@ -61,12 +61,12 @@ void Table::order(const std::vector<Dish> &menu)
 
 void Table::openTable()
 {
-
+    this->open = true;
 }
 
 void Table::closeTable()
 {
-
+    this->open = false;
 }
 
 int Table::getBill()
