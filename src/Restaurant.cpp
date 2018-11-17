@@ -5,19 +5,109 @@
 #include "../include/Restaurant.h"
 #include <cstdio>
 #include <iostream>
+#include <fstream>
+
+using namespace std;
+
 
 Restaurant::Restaurant():
 {
-    std:: vector <Table*> tables;
-    std:: vector <Dish> manu;
-    std::vector<BaseAction*> actionslog;
+    tables(new vector <Table*>);
+    manu(new vector(Dish>));
+    actionslog(new vector<BaseAction> actionsLog);
 }
 
 Restaurant::Restaurant(const std::string &configFilePath)
 {
-    throw std::runtime_error("error");
+
+    ifstream myfile;
+    string line;
+    myfile.open(configFilePath+".txt");
+    int lineNumber=0;
+    string prevLine;
+    int dishNumber=0;
+
+
+    while (getline(myfile,line))
+    {
+        if (line.at(0)=='#')
+        {
+            prevLine=line;
+            lineNumber++;
+        }
+
+        else
+        {
+            if(prevLine=="#number of tables")
+                tables (new vector<Table*>(line.at(0)));
+            else
+                //creates the tables vector
+                if (prevLine=="#tables description")
+                {
+                    vector <int> TablesCapacity =capacityVector(line);
+                    for (int i=0;i<tables.size();i++)
+                    {
+                        Table* table=new Table(TablesCapacity[i]);
+                        tables.insert(table);
+                    }
+                }
+            else
+                //creates the menu
+                {
+                    menu (new vector <Dish>);
+                    createMenu(line,menu&,dishNumber);
+                    dishNumber++;
+
+                }
+
+        }
+
+
+    }
+
 }
 
+//helper function: creates dish from menu line in the file
+void Restaurant::createMenu(string line, vector<Dish> &menu,int id)
+{
+
+    string name;
+    int price;
+    DishType type;
+    string word="";
+    int wordNumber=1;
+    for (int i=0;i<line.size();i++)
+        if (line[i]!=','&line[i]!=' ')
+            word=word+line[i];
+        else
+        {
+            if (wordNumber==1)
+                name=word;
+            else
+            {
+                if (wordNumber==2)
+                    type=word;
+            }
+            else
+            {
+                price=int(word);
+            }
+            word="";
+            wordNumber++;
+        }
+    menu.insert(new Dish (id,name,price,type));
+}
+
+
+//helper function: creates vector with capacity for each table
+vector <int> Restaurant::capacityVector(string line)
+{
+    vector <int> TablesCapacity;
+    for (int i=0;i<line.size();i++)
+        if (line.at(i)!=','&&line.at(i)!=' ')
+            TablesCapacity.push_back(line.at(i));
+    return TablesCapacity;
+}
 
 //copy constructor
 Restaurant::Restaurant(const Restaurant& a_Restaurant)

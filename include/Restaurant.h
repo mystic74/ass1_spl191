@@ -28,6 +28,10 @@ public:
     void delete_tables();
 	void delete_menu();
 	void delete_actionlog();
+    std:: vector <int> capacityVector(std:: string line);
+    void createMenu(std:: string line,std:: vector<Dish> &menu,int id);
+
+
 
 
 
