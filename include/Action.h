@@ -19,12 +19,13 @@ public:
     virtual void act(Restaurant& restaurant)=0;
     virtual std::string toString() const=0;
     Dish getDishFromId(int DishId,std:: vector<Dish>menu);
-
+    bool setActionLine(std::string stdLine);
 protected:
     void complete();
     void error(std::string errorMsg);
     std::string getErrorMsg() const;
 private:
+    std::string actionLine;
     std::string errorMsg;
     ActionStatus status;
 };
@@ -37,7 +38,7 @@ public:
     std::string toString() const;
 private:
 	const int tableId;
-	const std::vector<Customer *> customers;
+	std::vector<Customer *> customers;
 };
 
 

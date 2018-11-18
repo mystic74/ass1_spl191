@@ -7,8 +7,7 @@
 Table::Table(int t_capacity):capacity(t_capacity)
                             , open(true)
 {
-    customersList(new std:: vector<Customer*>);
-    orderList(new std:: vector<OrderPair>);
+
 
 }
 
@@ -27,17 +26,25 @@ void Table::addCustomer(Customer *customer)
 
 void Table::removeCustomer(int id)
 {
-    for (int i=0;i<customersList.size();i++)
-        if (customersList[i]->getId()==id)
-            customersList.erase(customersList.begin()+i);
+    for (unsigned int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
+    {
+        if (this->customersList[nIndex]->getId() == id)
+        {
+            this->customersList.erase(this->customersList.begin() + nIndex);
+        }
+
+    }
 }
 
-
-Customer *Table::getCustomer(int id)
+Customer* Table::getCustomer(int id)
 {
-    for (auto customer: customersList)
-        if (customer->getId()==id)
-            return customer;
+    for (unsigned int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
+    {
+        if (this->customersList[nIndex]->getId() == id)
+        {
+            return this->customersList[nIndex];
+        }
+    }
     return nullptr;
 }
 
@@ -58,12 +65,12 @@ void Table::order(const std::vector<Dish> &menu)
 
 void Table::openTable()
 {
-    open=true;
+    this->open = true;
 }
 
 void Table::closeTable()
 {
-    open=false;
+    this->open = false;
 }
 
 int Table::getBill()

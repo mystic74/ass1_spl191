@@ -4,13 +4,15 @@
 
 #include <include/Customer.h>
 #include <stdexcept>
-
+#include <algorithm>
+#include <string>
 #include "../include/Customer.h"
 
+const std::string Customer::strCustomerType[4] = {"VEG","CHP","SPC","ALC"};
 
-Customer::Customer(std::string c_name, int c_id) :  id(c_id)
-                                                 ,  name(c_name)
-                                                 ,  ordered(false)
+Customer::Customer(std::string c_name, int c_id) : name(c_name),
+                                                   id(c_id) ,
+                                                   ordered(false)
 
 {
 
@@ -26,14 +28,33 @@ int Customer::getId() const
     return this->id;
 }
 
+
+const std::string Customer::enumToString(const CustomerType nNum)
+{
+    return Customer::strCustomerType[nNum];
+}
+
+const CustomerType Customer::stringToEnum(std::string strName)
+{
+    std::transform(strName.begin(), strName.end(),strName.begin(), ::toupper);
+
+    for (unsigned int i = 0; i < sizeof(Customer::strCustomerType); ++i)
+    {
+        if (strName == Customer::strCustomerType[i])
+        {
+            return (static_cast<CustomerType >(i));
+        }
+
+    }
+
+    return CUST_INVALID;
+}
+
+
+
 std:: vector<int> Customer:: getOrderList()const
 {
     return this->order_list;
-}
-
-VegetarianCustomer(std::string &c_name, int c_id) : Customer(c_name, c_id)
-{
-
 }
 
 std::string VegetarianCustomer::toString() const
@@ -52,23 +73,27 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu)
 
     for (auto dish: menu)
     {
-        if (dish.getType()==VEG)
-            if(small_id==-1||dish.getId()<=small_id)
-        {
-            food_id=dish.getId();
-            small_id=dish.getId();
+        if (dish.getType()==VEG) {
+            if (small_id == -1 || dish.getId() <= small_id) {
+                food_id = dish.getId();
+                small_id = dish.getId();
+            }
         }
-        if (dish.getType()==BVG&&dish.getPrice()>large_price)
+        if ((dish.getType()==BVG) &&
+            (dish.getPrice()>large_price))
         {
-            bvg_id=dish.getId();
-            large_price=dish.getPrice()
+            bvg_id = dish.getId();
+            large_price = dish.getPrice();
         }
 
     }
 
     //menu has no veg dish
     if(food_id==-1)
+    {
         return this->order_list;
+    }
+
     this->ordered=true;
     this->order_list.push_back(food_id);
     this->order_list.push_back(bvg_id);
@@ -152,11 +177,11 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
             if(dish.getType()==BVG&&(small_price||dish.getPrice()<=small_price))
             {
                 food_id=dish.getId();
-                small_price=dish.getPrice()
+                small_price=dish.getPrice();
             }
         }
     }
-    this->ordered==true;
+    this->ordered = true;
     this->order_list.push_back(food_id);
     return this->order_list;
 }

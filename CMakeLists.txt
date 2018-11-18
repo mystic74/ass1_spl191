@@ -3,14 +3,18 @@ project(ass1)
 
 set(CMAKE_CXX_STANDARD 14)
 
+set(CMAKE_CXX_FLAGS_RELEASE -Wall)
+
 include_directories(.)
 
 add_executable(ass1
         src/Customer.cpp
         src/Restaurant.cpp
-        include/Action.h
-        include/Customer.h
-        include/Dish.h
+        src/Action.cpp
+        src/ActionFactory.cpp
+        src/CustomerFactory.cpp
+        src/Restaurant.cpp
+        src/Table.cpp
+        src/Dish.cpp
         Main.cpp
-        include/Restaurant.h
-        include/Table.h src/Dish.cpp src/Table.cpp src/Action.cpp)
+        )
