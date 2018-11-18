@@ -81,10 +81,9 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
                 returnValue = new RestoreResturant();
 
             }
+
+            returnValue->setActionLine(actionLine);
         }
-
-
-
     }
     return returnValue;
 }

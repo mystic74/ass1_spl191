@@ -47,7 +47,7 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
                     this->tables.insert(this->tables.begin(), currTable);
                 }
 
-                assert(this->tables.size() == this->nNumOfTables);
+                assert(this->tables.size() == ((unsigned int)this->nNumOfTables));
                 params_set[TABLES_DESCRIPTION] = true;
             }
             else
@@ -81,12 +81,12 @@ const std::vector<BaseAction*>& Restaurant::getActionsLog() const
 
 int Restaurant::getNumOfTables() const
 {
-    this->tables.size();
+    return this->tables.size();
 }
 
 Table* Restaurant::getTable(int ind)
 {
-   if ((ind > this->tables.size()) || (ind < 0))
+   if (((unsigned int)ind > this->tables.size()) || (ind < 0))
    {
        return nullptr;
    }

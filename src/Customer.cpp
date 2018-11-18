@@ -35,7 +35,7 @@ const CustomerType Customer::stringToEnum(std::string strName)
 {
     std::transform(strName.begin(), strName.end(),strName.begin(), ::toupper);
 
-    for (int i = 0; i < sizeof(Customer::strCustomerType); ++i)
+    for (unsigned int i = 0; i < sizeof(Customer::strCustomerType); ++i)
     {
         if (strName == Customer::strCustomerType[i])
         {

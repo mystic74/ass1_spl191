@@ -22,7 +22,7 @@ void Table::addCustomer(Customer *customer)
 
 void Table::removeCustomer(int id)
 {
-    for (int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
+    for (unsigned int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
     {
         if (this->customersList[nIndex]->getId() == id)
         {
@@ -34,7 +34,7 @@ void Table::removeCustomer(int id)
 
 Customer* Table::getCustomer(int id)
 {
-    for (int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
+    for (unsigned int nIndex = 0; nIndex < this->customersList.size(); nIndex++)
     {
         if (this->customersList[nIndex]->getId() == id)
         {

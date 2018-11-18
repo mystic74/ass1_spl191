@@ -32,7 +32,11 @@ std::string BaseAction::getErrorMsg() const
 {
     return this->errorMsg;
 }
-
+bool BaseAction::setActionLine(std::string stdLine)
+{
+    this->actionLine = stdLine;
+    return true;
+}
 
 OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  BaseAction(),
                                                                         tableId(id),
@@ -43,6 +47,15 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  BaseActi
 
 void OpenTable::act(Restaurant &restaurant)
 {
+    // Get the current table
+    Table* currTable = restaurant.getTable(this->tableId);
+
+    for (auto currCustomer : this->customers)
+    {
+        // Adding each customer
+        currTable->addCustomer(currCustomer);
+    }
+    
 }
 
 std::string OpenTable::toString() const
@@ -62,7 +75,13 @@ Order::Order(int id) :  BaseAction(),
 
 void Order::act(Restaurant &restaurant)
 {
+    // Get the table for which to order
+    Table* currTable = restaurant.getTable(this->tableId);
 
+    for (auto currCust : currTable->getCustomers())
+    {
+        currCust->order(restaurant.getMenu());
+    }
 }
 
 std::string Order::toString() const
@@ -85,7 +104,33 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  BaseAction(),
 
 void MoveCustomer::act(Restaurant &restaurant)
 {
+    // Try and get both Tables 
+    Table* orgTable = restaurant.getTable(this->srcTable);
+    Table* tDstTable = restaurant.getTable(this->dstTable);
 
+    // TODO TomR : nullptr check.
+    if (orgTable == nullptr)
+    {
+        this->error("Cannot move customer");
+
+    }
+    if (tDstTable == nullptr)
+    {
+        this->error("Cannot move customer");
+    }
+
+    Customer* currCust = orgTable->getCustomer(this->id);
+    if (currCust == nullptr)
+    {
+        this->error("Cannot move customer");
+    }
+
+    if (((unsigned int)tDstTable->getCapacity()) >= tDstTable->getCustomers().size())
+    {
+        this->error("Cannot move customer");
+    }
+
+    tDstTable->addCustomer(currCust);
 }
 
 std::string MoveCustomer::toString() const
@@ -104,7 +149,14 @@ Close::Close(int id) :  BaseAction(),
 
 void Close::act(Restaurant &restaurant)
 {
-
+    if (restaurant.getTable(this->tableId)->isOpen() == false)
+    {
+        this->error("Table is not opened, failed to close table");
+    }
+    else
+    {
+        restaurant.getTable(this->tableId)->closeTable();
+    }
 }
 
 std::string Close::toString() const
@@ -123,7 +175,13 @@ PrintActionsLog::PrintActionsLog() : BaseAction()
 
 void PrintActionsLog::act(Restaurant &restaurant)
 {
+    for (auto currLog : restaurant.getActionsLog())
+    {
+        // TODO TomR : Print them?
 
+        // Should work i guess?
+        std::cout << currLog->toString() << std::endl; 
+    }
 }
 
 std::string PrintActionsLog::toString() const

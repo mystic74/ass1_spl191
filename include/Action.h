@@ -18,11 +18,13 @@ public:
     ActionStatus getStatus() const;
     virtual void act(Restaurant& restaurant)=0;
     virtual std::string toString() const=0;
+    bool setActionLine(std::string stdLine);
 protected:
     void complete();
     void error(std::string errorMsg);
     std::string getErrorMsg() const;
 private:
+    std::string actionLine;
     std::string errorMsg;
     ActionStatus status;
 };

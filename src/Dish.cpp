@@ -45,7 +45,7 @@ std::string Dish::enumToString(DishType nNum)
 
 DishType Dish::stringToEnum(std::string strName)
 {
-    for (int i = 0; i < sizeof(Dish::strDishType); ++i)
+    for (unsigned int i = 0; i < sizeof(Dish::strDishType); ++i)
     {
         if (strName == Dish::strDishType[i])
         {
