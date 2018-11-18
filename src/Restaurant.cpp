@@ -83,7 +83,7 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 Restaurant::Restaurant(const Restaurant& a_Restaurant)
 {
 
-    this->copy(a_Restaurant);
+//    this->copy(a_Restaurant);
 }
 
 //destructor
@@ -98,7 +98,7 @@ Restaurant & Restaurant::operator=(const Restaurant & a_Restaurant)
         return *this;
     }
     clear();
-    this->copy(a_Restaurant);
+//    this->copy(a_Restaurant);
     return *this;
 
 
@@ -220,5 +220,4 @@ void Restaurant::closeRestaurant()
 {
     this->isOpen = false;
 }
-
 

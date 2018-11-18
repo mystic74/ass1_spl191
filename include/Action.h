@@ -18,7 +18,7 @@ public:
     ActionStatus getStatus() const;
     virtual void act(Restaurant& restaurant)=0;
     virtual std::string toString() const=0;
-    Dish getDishFromId(int DishId,std:: vector<Dish>menu);
+    static Dish getDishFromId(int DishId,std:: vector<Dish>menu);
     bool setActionLine(std::string stdLine);
 protected:
     void complete();

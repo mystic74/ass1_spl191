@@ -94,3 +94,24 @@ bool Table::isOpen()
 {
     return this->open;
 }
+
+
+
+bool Table::MoveOrders(Table &originTable, int nID)
+{
+    std::vector<OrderPair> newWorldOrder = {};
+    for (unsigned int nIndex = 0; nIndex < originTable.orderList.size(); nIndex++)
+    {
+        if (originTable.orderList[nIndex].first == nID)
+        {
+            this->orderList.push_back(originTable.orderList[nIndex]);
+
+        }
+        else {
+            newWorldOrder.push_back(originTable.orderList[nIndex]);
+        }
+    }
+
+    originTable.orderList = newWorldOrder;
+
+}
