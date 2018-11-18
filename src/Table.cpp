@@ -75,10 +75,18 @@ void Table::closeTable()
 
 int Table::getBill()
 {
-    int bill=0;
+    int bill = 0;
     for (auto order:orderList)
+    {
         bill=bill+order.second.getPrice();
+    }
     return bill;
+}
+
+bool Table::addOrder(OrderPair opOrder)
+{
+    this->orderList.push_back(opOrder);
+    return true;
 }
 
 bool Table::isOpen()

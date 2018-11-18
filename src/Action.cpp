@@ -87,9 +87,10 @@ void Order::act(Restaurant &restaurant)
         this->error("Table does not exist or isn't open");
     std:: vector<Customer*> table_customers= restaurant.getTable(tableId)->getCustomers();
     for (auto customer: table_customers )
+    {
         customer->order(restaurant.getMenu());
         //need to add a order list
-
+    }
 }
 
 std::string Order::toString() const

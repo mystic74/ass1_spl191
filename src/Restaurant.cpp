@@ -171,7 +171,8 @@ Dish* Restaurant::getDish(int ind)
 Table* Restaurant::getTable(int ind)
 {
     // Set to unsigned, check <= or <, and check for negetive numbers
-    if (this->tables.empty()|tables.size()<=ind)
+    if ((this->tables.empty()) ||
+        (tables.size()<=ind))
     {
         return nullptr;
     }

@@ -21,6 +21,7 @@ public:
     void closeTable();
     int getBill();
     bool isOpen();
+    bool addOrder(OrderPair opOrder);
 private:
     int capacity;
     bool open;
