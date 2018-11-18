@@ -50,7 +50,7 @@ void OpenTable::act(Restaurant &restaurant)
         this->error("Table does not exist or already open");
     else
     {
-	restaurant.getTable(tableId)->openTable();
+	    restaurant.getTable(tableId)->openTable();
         for (auto custumer : customers)
         {
 	    restaurant.getTable(tableId)->addCustomer(custumer);
@@ -83,14 +83,25 @@ Order::Order(int id) :  BaseAction(),
 
 void Order::act(Restaurant &restaurant)
 {
-    if (restaurant.getTable(tableId)== nullptr||!(restaurant.getTable(tableId)->isOpen()))
+    if (restaurant.getTable(tableId) == nullptr || !(restaurant.getTable(tableId)->isOpen()))
+    {
         this->error("Table does not exist or isn't open");
+    }
+
     std:: vector<Customer*> table_customers= restaurant.getTable(tableId)->getCustomers();
     for (auto customer: table_customers )
     {
-        customer->order(restaurant.getMenu());
-        //need to add a order list
+        std:: vector<int> currOrderList = customer->order(restaurant.getMenu());
+
+        // Generating OrderPair fro the last dish ordered, and the customer id, hopefully thats what they order
+        OrderPair currOrder = std::make_pair(customer->getId(),
+                                             *restaurant.getDish(currOrderList[currOrderList.size() - 1]));
+        restaurant.getTable(tableId)->addOrder(currOrder);
+
+        std::cout << customer->getName() << " ordered " << restaurant.getDish(currOrderList[currOrderList.size()])->getName() << std::endl;
     }
+
+
 }
 
 std::string Order::toString() const
@@ -101,7 +112,7 @@ std::string Order::toString() const
             stat="COMPLETED";
         else
             if (this->getStatus()==ERROR)
-                stat="ERROR: "+this->getErrorMsg();
+                stat="ERROR: " + this->getErrorMsg();
         else
             stat="Pending";
         return stat;

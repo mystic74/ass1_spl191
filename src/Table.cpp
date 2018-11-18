@@ -4,8 +4,8 @@
 
 #include <include/Table.h>
 
-Table::Table(int t_capacity):capacity(t_capacity)
-                            , open(true)
+Table::Table(int t_capacity):capacity(t_capacity),
+                             open(false)
 {
 
 
@@ -18,8 +18,9 @@ int Table::getCapacity() const
 
 void Table::addCustomer(Customer *customer)
 {
-    if (customersList.size()<capacity)
-        this->customersList.push_back(customer);
+    if (customersList.size()<capacity) {
+        this->customersList.insert(this->customersList.begin(), customer);
+    }
 }
 
 

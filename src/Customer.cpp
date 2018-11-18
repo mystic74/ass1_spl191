@@ -7,12 +7,13 @@
 #include <algorithm>
 #include <string>
 #include "../include/Customer.h"
+#include <iostream>
 
 const std::string Customer::strCustomerType[4] = {"VEG","CHP","SPC","ALC"};
 
 Customer::Customer(std::string c_name, int c_id) : name(c_name),
                                                    id(c_id) ,
-                                                   ordered(false)
+                                                   ordered(0)
 
 {
 
@@ -94,7 +95,7 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu)
         return this->order_list;
     }
 
-    this->ordered=true;
+    this->ordered++;
     this->order_list.push_back(food_id);
     this->order_list.push_back(bvg_id);
     return this->order_list;
@@ -117,7 +118,7 @@ CheapCustomer::CheapCustomer(std::string name, int id)
 
 std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu)
 {
-    if (this->ordered)
+    if (this->ordered > 0)
     {
         throw std:: invalid_argument("cheap customer can't order more then once");
     }
@@ -132,7 +133,7 @@ std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu)
         }
     }
 
-    ordered=true;
+    ordered++;
     this->order_list.push_back(food_id);
     return this->order_list;
 }
@@ -159,7 +160,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
     int food_id=-1;
     int small_price=-1;
 
-    if (this->ordered==false)
+    if (this->ordered == 0)
     {
         for (auto dish: menu)
         {
@@ -181,7 +182,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
             }
         }
     }
-    this->ordered = true;
+    this->ordered++;
     this->order_list.push_back(food_id);
     return this->order_list;
 }
@@ -199,11 +200,27 @@ AlchoholicCustomer::AlchoholicCustomer(std::string name, int id)
 
 }
 
+
+
+
 std::vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu)
 {
+    if (ordered == 0) {
+        for (auto currDish : menu) {
+            DishPrice currPair;
+            currPair.price = currDish.getPrice();
+            currPair.id = currDish.getId();
 
+            this->sortedPricesArray .push_back(currPair);
+        }
 
-    return std::vector<int>();
+        std::sort(this->sortedPricesArray .begin(),
+                  this->sortedPricesArray .begin() + this->sortedPricesArray .size());
+
+        // Now get the most expensive shit.
+        Dish PricyDish = menu[0];
+        this->order_list.push_back(PricyDish.getId());
+    }
 }
 
 std::string AlchoholicCustomer::toString() const

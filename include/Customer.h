@@ -32,7 +32,7 @@ private:
     const int id;
     const static std::string strCustomerType[4];
 protected:
-    bool ordered;
+    int ordered;
     std:: vector<int> order_list;
 };
 
@@ -65,12 +65,28 @@ private:
 
 
 class AlchoholicCustomer : public Customer {
+
+
+struct DishPrice
+{
+	int price;
+	int id;
+
+	// This might be better.
+	 bool operator<(DishPrice const &r) const {
+		if (this->price != r.price)
+			return this->price < r.price;
+		else
+			return this->id < r.id;
+	 }
+};
+
 public:
 	AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
 private:
-
+	std::vector<DishPrice> sortedPricesArray;
 };
 
 
