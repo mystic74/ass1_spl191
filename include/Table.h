@@ -22,6 +22,7 @@ public:
     int getBill();
     bool isOpen();
     bool addOrder(OrderPair opOrder);
+    bool MoveOrders(Table& originTable, int nID);
 private:
     int capacity;
     bool open;
