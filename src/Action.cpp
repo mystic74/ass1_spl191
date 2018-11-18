@@ -340,7 +340,11 @@ PrintMenu::PrintMenu() : BaseAction()
 
 void PrintMenu::act(Restaurant &restaurant)
 {
-
+    std:: vector<Dish> menu=restaurant.getMenu();
+    for (auto dish:menu)
+    {
+        std:: cout<< dish.getName()+" "+std:: to_string(dish.getType())+" "+std:: to_string(dish.getPrice())+"NIS"<<std:: endl;
+    }
 }
 
 std::string PrintMenu::toString() const
