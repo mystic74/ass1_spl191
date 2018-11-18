@@ -279,6 +279,34 @@ PrintTableStatus::PrintTableStatus(int id) :    BaseAction(),
 
 void PrintTableStatus::act(Restaurant &restaurant)
 {
+    Table* currTable=restaurant.getTable(tableId);
+    if (currTable->isOpen())
+    {
+        std:: cout<<"Table "+std::to_string(tableId)+" status: open" << std::endl;
+        std:: vector <Customer*> customers= currTable->getCustomers();
+
+        std:: cout<< "Customers:"<<std:: endl;
+        for (auto customer: customers)
+        {
+            std:: cout <<customer->toString() << std:: endl;
+        }
+
+        std:: cout<< "Orders:"<< std:: endl;
+
+        std:: vector<OrderPair> orders= currTable->getOrders();
+        for (auto dish: orders)
+        {
+            std:: string dishName=dish.second.getName();
+            int price= dish.second.getPrice();
+            std:: cout <<dishName+" "+ std::to_string(price)+"NIS "+std::to_string(dish.first)<< std:: endl;
+        }
+
+        std:: cout<< "Current Bill: "+std:: to_string(currTable->getBill())+"NIS"<< std:: endl;
+    }
+    else
+    {
+        std:: cout<<"Table "+std::to_string(tableId)+" status: closed" << std::endl;
+    }
 
 }
 
@@ -295,7 +323,19 @@ CloseAll::CloseAll() : BaseAction()
 
 void CloseAll::act(Restaurant &restaurant)
 {
-
+    for (unsigned int i=0;i<restaurant.getNumOfTables();i++)
+    {
+        Table* currTable=restaurant.getTable(i);
+        if (currTable->isOpen())
+        {
+            currTable->closeTable();
+            std:: cout<<"Table "+std::to_string(i)+" was cosed. Bill "+std::to_string(currTable->getBill())+"NIS"<< std:: endl;
+        }
+    }
+    restaurant.delete_tables();
+    restaurant.delete_menu();
+    restaurant.delete_actionlog();
+    restaurant.closeRestaurant();
 }
 
 std::string CloseAll::toString() const
@@ -311,7 +351,11 @@ PrintMenu::PrintMenu() : BaseAction()
 
 void PrintMenu::act(Restaurant &restaurant)
 {
-
+    std:: vector<Dish> menu=restaurant.getMenu();
+    for (auto dish:menu)
+    {
+        std:: cout<< dish.getName()+" "+std:: to_string(dish.getType())+" "+std:: to_string(dish.getPrice())+"NIS"<<std:: endl;
+    }
 }
 
 std::string PrintMenu::toString() const

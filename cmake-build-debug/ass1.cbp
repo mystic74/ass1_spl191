@@ -89,25 +89,16 @@
 		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/Main.cpp">
 			<Option target="ass1"/>
 		</Unit>
-		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/include/Action.h">
-			<Option target="ass1"/>
-		</Unit>
-		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/include/Customer.h">
-			<Option target="ass1"/>
-		</Unit>
-		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/include/Dish.h">
-			<Option target="ass1"/>
-		</Unit>
-		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/include/Restaurant.h">
-			<Option target="ass1"/>
-		</Unit>
-		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/include/Table.h">
-			<Option target="ass1"/>
-		</Unit>
 		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/src/Action.cpp">
 			<Option target="ass1"/>
 		</Unit>
+		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/src/ActionFactory.cpp">
+			<Option target="ass1"/>
+		</Unit>
 		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/src/Customer.cpp">
+			<Option target="ass1"/>
+		</Unit>
+		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/src/CustomerFactory.cpp">
 			<Option target="ass1"/>
 		</Unit>
 		<Unit filename="/home/rachel/CLionProjects/ass1_spl191/src/Dish.cpp">

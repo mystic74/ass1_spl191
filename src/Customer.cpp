@@ -60,7 +60,7 @@ std:: vector<int> Customer:: getOrderList()const
 
 std::string VegetarianCustomer::toString() const
 {
-    return std::__cxx11::string();
+    return std:: to_string(this->getId())+" "+this->getName();
 }
 
 std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu)
@@ -142,7 +142,7 @@ std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu)
 
 std::string CheapCustomer::toString() const
 {
-    return std::__cxx11::string();
+    return std:: to_string(this->getId())+" "+this->getName();
 }
 
 
@@ -189,7 +189,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
 
 std::string SpicyCustomer::toString() const
 {
-    return std::__cxx11::string();
+    return std:: to_string(this->getId())+" "+this->getName();
 }
 
 
@@ -225,5 +225,5 @@ std::vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu)
 
 std::string AlchoholicCustomer::toString() const
 {
-    return std::__cxx11::string();
+    return std:: to_string(this->getId())+" "+this->getName();
 }

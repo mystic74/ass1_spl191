@@ -177,6 +177,33 @@ src/Action.cpp.s:
 	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/Action.cpp.s
 .PHONY : src/Action.cpp.s
 
+src/ActionFactory.o: src/ActionFactory.cpp.o
+
+.PHONY : src/ActionFactory.o
+
+# target to build an object file
+src/ActionFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/ActionFactory.cpp.o
+.PHONY : src/ActionFactory.cpp.o
+
+src/ActionFactory.i: src/ActionFactory.cpp.i
+
+.PHONY : src/ActionFactory.i
+
+# target to preprocess a source file
+src/ActionFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/ActionFactory.cpp.i
+.PHONY : src/ActionFactory.cpp.i
+
+src/ActionFactory.s: src/ActionFactory.cpp.s
+
+.PHONY : src/ActionFactory.s
+
+# target to generate assembly for a file
+src/ActionFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/ActionFactory.cpp.s
+.PHONY : src/ActionFactory.cpp.s
+
 src/Customer.o: src/Customer.cpp.o
 
 .PHONY : src/Customer.o
@@ -203,6 +230,33 @@ src/Customer.s: src/Customer.cpp.s
 src/Customer.cpp.s:
 	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/Customer.cpp.s
 .PHONY : src/Customer.cpp.s
+
+src/CustomerFactory.o: src/CustomerFactory.cpp.o
+
+.PHONY : src/CustomerFactory.o
+
+# target to build an object file
+src/CustomerFactory.cpp.o:
+	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/CustomerFactory.cpp.o
+.PHONY : src/CustomerFactory.cpp.o
+
+src/CustomerFactory.i: src/CustomerFactory.cpp.i
+
+.PHONY : src/CustomerFactory.i
+
+# target to preprocess a source file
+src/CustomerFactory.cpp.i:
+	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/CustomerFactory.cpp.i
+.PHONY : src/CustomerFactory.cpp.i
+
+src/CustomerFactory.s: src/CustomerFactory.cpp.s
+
+.PHONY : src/CustomerFactory.s
+
+# target to generate assembly for a file
+src/CustomerFactory.cpp.s:
+	$(MAKE) -f CMakeFiles/ass1.dir/build.make CMakeFiles/ass1.dir/src/CustomerFactory.cpp.s
+.PHONY : src/CustomerFactory.cpp.s
 
 src/Dish.o: src/Dish.cpp.o
 
@@ -300,9 +354,15 @@ help:
 	@echo "... src/Action.o"
 	@echo "... src/Action.i"
 	@echo "... src/Action.s"
+	@echo "... src/ActionFactory.o"
+	@echo "... src/ActionFactory.i"
+	@echo "... src/ActionFactory.s"
 	@echo "... src/Customer.o"
 	@echo "... src/Customer.i"
 	@echo "... src/Customer.s"
+	@echo "... src/CustomerFactory.o"
+	@echo "... src/CustomerFactory.i"
+	@echo "... src/CustomerFactory.s"
 	@echo "... src/Dish.o"
 	@echo "... src/Dish.i"
 	@echo "... src/Dish.s"

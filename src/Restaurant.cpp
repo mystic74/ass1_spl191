@@ -106,26 +106,7 @@ Restaurant & Restaurant::operator=(const Restaurant & a_Restaurant)
 
 
 
-void Restaurant:: copy(const Restaurant & a_Restaurant)
-{
 
-//    std:: vector <Table*> tables;
-//    std:: vector <Dish> manu;
-//    std::vector<BaseAction*> actionslog;
-//
-//    for (int i=0; i<a_Restaurant.getNumOfTables(); i++)
-//    {
-//        tables[i] = a_Restaurant.getTable(i);
-//    }
-//    for (int i=0;i<.a_Restaurnt.getNumOfDishes();i++)
-//    {
-//        menu[i]=a_Restaurant.getDish(i);
-//    }
-//    for (int i=0;i<.a_Restaurnt.getNumOfActionlog();i++)
-//    {
-//        actionsLog[i]=a_Restaurant.getActionsLog()[i];
-//    }
-}
 
 void Restaurant:: clear()
 {
