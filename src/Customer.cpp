@@ -7,12 +7,14 @@
 #include <algorithm>
 #include <string>
 #include "../include/Customer.h"
+#include <iostream>
+#include <include/Action.h>
 
 const std::string Customer::strCustomerType[4] = {"VEG","CHP","SPC","ALC"};
 
 Customer::Customer(std::string c_name, int c_id) : name(c_name),
                                                    id(c_id) ,
-                                                   ordered(false)
+                                                   ordered(0)
 
 {
 
@@ -69,7 +71,7 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu)
     int large_price=-1;
     int food_id=-1;
     int bvg_id=-1;
-
+    this->order_list = {};
 
     for (auto dish: menu)
     {
@@ -94,7 +96,7 @@ std::vector<int> VegetarianCustomer::order(const std::vector<Dish> &menu)
         return this->order_list;
     }
 
-    this->ordered=true;
+    this->ordered++;
     this->order_list.push_back(food_id);
     this->order_list.push_back(bvg_id);
     return this->order_list;
@@ -117,10 +119,14 @@ CheapCustomer::CheapCustomer(std::string name, int id)
 
 std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu)
 {
-    if (this->ordered)
+    if (this->ordered > 0)
     {
-        throw std:: invalid_argument("cheap customer can't order more then once");
+        // This shouldn't throw, its a valid state, though just don't order.
+        // Will return an empty vector for now.
+        return std::vector<int>();
+        //throw std:: invalid_argument("cheap customer can't order more then once");
     }
+
     int small_price=-1;
     int food_id=-1;
     for (auto dish:menu)
@@ -132,7 +138,7 @@ std::vector<int> CheapCustomer::order(const std::vector<Dish> &menu)
         }
     }
 
-    ordered=true;
+    ordered++;
     this->order_list.push_back(food_id);
     return this->order_list;
 }
@@ -159,7 +165,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
     int food_id=-1;
     int small_price=-1;
 
-    if (this->ordered==false)
+    if (this->ordered == 0)
     {
         for (auto dish: menu)
         {
@@ -181,7 +187,7 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
             }
         }
     }
-    this->ordered = true;
+    this->ordered++;
     this->order_list.push_back(food_id);
     return this->order_list;
 }
@@ -199,11 +205,37 @@ AlchoholicCustomer::AlchoholicCustomer(std::string name, int id)
 
 }
 
+
+
+
 std::vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu)
 {
+    this->order_list = {};
 
+    if (ordered == 0) {
+        for (auto currDish : menu) {
+            if (currDish.getType() == ALC)
+            {
+                DishPrice currPair;
+                currPair.price = currDish.getPrice();
+                currPair.id = currDish.getId();
 
-    return std::vector<int>();
+                this->sortedPricesArray .push_back(currPair);
+            }
+        }
+
+        std::sort(this->sortedPricesArray .begin(),
+                  this->sortedPricesArray .begin() + this->sortedPricesArray .size());
+    }
+
+    if (ordered < this->sortedPricesArray.size()){
+        Dish PricyDish = BaseAction::getDishFromId(this->sortedPricesArray[ordered].id, menu);
+        this->order_list.push_back(PricyDish.getId());
+    }
+
+    ordered++;
+
+    return this->order_list;
 }
 
 std::string AlchoholicCustomer::toString() const

@@ -19,6 +19,7 @@ enum FILE_PARAMS
 #include "Action.h"
 
 
+
 class Restaurant{		
 public:
     /// rule of 5
@@ -48,7 +49,7 @@ public:
 	void delete_actionlog();
     std:: vector <int> capacityVector(std:: string line);
     void createMenu(std:: string line,std:: vector<Dish> &menu,int id);
-
+    bool addActionLog(BaseAction* aAction);
     static int customer_id;
     void openRestaurant();
     void closeRestaurant();

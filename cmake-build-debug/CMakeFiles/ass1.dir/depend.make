@@ -8,10 +8,51 @@ CMakeFiles/ass1.dir/Main.cpp.o: ../include/Dish.h
 CMakeFiles/ass1.dir/Main.cpp.o: ../include/Restaurant.h
 CMakeFiles/ass1.dir/Main.cpp.o: ../include/Table.h
 
+CMakeFiles/ass1.dir/src/Action.cpp.o: .././include/Action.h
+CMakeFiles/ass1.dir/src/Action.cpp.o: .././include/Customer.h
+CMakeFiles/ass1.dir/src/Action.cpp.o: .././include/Dish.h
+CMakeFiles/ass1.dir/src/Action.cpp.o: .././include/Restaurant.h
+CMakeFiles/ass1.dir/src/Action.cpp.o: .././include/Table.h
+CMakeFiles/ass1.dir/src/Action.cpp.o: ../src/Action.cpp
+
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/Action.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/ActionFactory.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/Customer.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/CustomerFactory.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/Dish.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/Restaurant.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././include/Table.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: .././src/IO/MyString.h
+CMakeFiles/ass1.dir/src/ActionFactory.cpp.o: ../src/ActionFactory.cpp
+
+CMakeFiles/ass1.dir/src/Customer.cpp.o: .././include/Action.h
+CMakeFiles/ass1.dir/src/Customer.cpp.o: .././include/Customer.h
+CMakeFiles/ass1.dir/src/Customer.cpp.o: .././include/Dish.h
+CMakeFiles/ass1.dir/src/Customer.cpp.o: ../include/Customer.h
+CMakeFiles/ass1.dir/src/Customer.cpp.o: ../src/Customer.cpp
+
+CMakeFiles/ass1.dir/src/CustomerFactory.cpp.o: .././include/Customer.h
+CMakeFiles/ass1.dir/src/CustomerFactory.cpp.o: .././include/CustomerFactory.h
+CMakeFiles/ass1.dir/src/CustomerFactory.cpp.o: .././include/Dish.h
+CMakeFiles/ass1.dir/src/CustomerFactory.cpp.o: ../src/CustomerFactory.cpp
+
+CMakeFiles/ass1.dir/src/Dish.cpp.o: .././include/Dish.h
+CMakeFiles/ass1.dir/src/Dish.cpp.o: ../src/Dish.cpp
+
+CMakeFiles/ass1.dir/src/Restaurant.cpp.o: .././include/Action.h
+CMakeFiles/ass1.dir/src/Restaurant.cpp.o: .././include/ActionFactory.h
+CMakeFiles/ass1.dir/src/Restaurant.cpp.o: .././include/Restaurant.h
 CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../include/Action.h
 CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../include/Customer.h
 CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../include/Dish.h
 CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../include/Restaurant.h
 CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../include/Table.h
+CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../src/IO/File.h
+CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../src/IO/MyString.h
 CMakeFiles/ass1.dir/src/Restaurant.cpp.o: ../src/Restaurant.cpp
+
+CMakeFiles/ass1.dir/src/Table.cpp.o: .././include/Customer.h
+CMakeFiles/ass1.dir/src/Table.cpp.o: .././include/Dish.h
+CMakeFiles/ass1.dir/src/Table.cpp.o: .././include/Table.h
+CMakeFiles/ass1.dir/src/Table.cpp.o: ../src/Table.cpp
 

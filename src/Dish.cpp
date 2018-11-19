@@ -3,7 +3,7 @@
 */
 
 #include <include/Dish.h>
-
+#include <vector>
 
 
 const std::string Dish::strDishType[4] = {"VEG","SPC","BVG","ALC"};
@@ -61,3 +61,5 @@ DishType Dish::stringToEnum(std::string strName)
     // TODO TomR : How do i return an invalid type? stupid enum.
     return static_cast<DishType> (-1);
 }
+
+

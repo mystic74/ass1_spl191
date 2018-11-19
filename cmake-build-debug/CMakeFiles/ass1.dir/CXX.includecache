@@ -6,57 +6,27 @@
 
 #IncludeRegexTransform: 
 
-/home/rachel/CLionProjects/ass1_spl191/Main.cpp
-include/Restaurant.h
-/home/rachel/CLionProjects/ass1_spl191/include/Restaurant.h
-iostream
--
-
-/home/rachel/CLionProjects/ass1_spl191/include/Action.h
-string
--
-iostream
--
-Customer.h
-/home/rachel/CLionProjects/ass1_spl191/include/Customer.h
-
-/home/rachel/CLionProjects/ass1_spl191/include/Customer.h
+.././include/Customer.h
 vector
 -
 string
 -
 Dish.h
-/home/rachel/CLionProjects/ass1_spl191/include/Dish.h
+.././include/Dish.h
 
-/home/rachel/CLionProjects/ass1_spl191/include/Dish.h
+.././include/Dish.h
 string
 -
 
-/home/rachel/CLionProjects/ass1_spl191/include/Restaurant.h
-vector
--
-string
--
-Dish.h
-/home/rachel/CLionProjects/ass1_spl191/include/Dish.h
-Table.h
-/home/rachel/CLionProjects/ass1_spl191/include/Table.h
-Action.h
-/home/rachel/CLionProjects/ass1_spl191/include/Action.h
-
-/home/rachel/CLionProjects/ass1_spl191/include/Table.h
+.././include/Table.h
 vector
 -
 Customer.h
-/home/rachel/CLionProjects/ass1_spl191/include/Customer.h
+.././include/Customer.h
 Dish.h
-/home/rachel/CLionProjects/ass1_spl191/include/Dish.h
+.././include/Dish.h
 
-/home/rachel/CLionProjects/ass1_spl191/src/Restaurant.cpp
-../include/Restaurant.h
-/home/rachel/CLionProjects/ass1_spl191/include/Restaurant.h
-cstdio
--
-iostream
+/home/rachel/CLionProjects/ass1_spl191/src/Table.cpp
+include/Table.h
 -
 

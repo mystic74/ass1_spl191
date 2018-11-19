@@ -40,8 +40,6 @@ public:
 
     }
 
-
-
     int getId() const;
     std::string getName() const;
     int getPrice() const;

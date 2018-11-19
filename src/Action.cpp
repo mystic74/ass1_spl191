@@ -23,7 +23,10 @@ void BaseAction::complete()
 void BaseAction::error(std::string errorMsg)
 {
     this->status = ERROR;
+
     this->errorMsg = errorMsg;
+
+    std::cout << "ERROR : " + errorMsg << std::endl;
 }
 
 std::string BaseAction::getErrorMsg() const
@@ -110,11 +113,12 @@ OpenTable & OpenTable:: operator=(OpenTable&& other)//move assignment operator
 void OpenTable::act(Restaurant &restaurant)
 {
 
-    if (restaurant.getTable(tableId)== nullptr||restaurant.getTable(tableId)->isOpen())
+    if (restaurant.getTable(tableId)== nullptr || restaurant.getTable(tableId)->isOpen()) {
         this->error("Table does not exist or already open");
+    }
     else
     {
-	restaurant.getTable(tableId)->openTable();
+	    restaurant.getTable(tableId)->openTable();
         for (auto custumer : customers)
         {
 	    restaurant.getTable(tableId)->addCustomer(custumer);
@@ -125,13 +129,19 @@ void OpenTable::act(Restaurant &restaurant)
 std::string OpenTable::toString() const
 {
     std:: string stat;
-    if (this->getStatus()==COMPLETED)
-        stat="COMPLETED";
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
     else
-        if (this->getStatus()==ERROR)
-            stat="ERROR: "+this->getErrorMsg();
-    else
-        stat="Pending";
+    {
+        // Should we get here?
+    }
     return stat;
 }
 
@@ -147,29 +157,48 @@ Order::Order(int id) :  BaseAction(),
 
 void Order::act(Restaurant &restaurant)
 {
-    if (restaurant.getTable(tableId)== nullptr||!(restaurant.getTable(tableId)->isOpen()))
+    if (restaurant.getTable(tableId) == nullptr || !(restaurant.getTable(tableId)->isOpen()))
+    {
         this->error("Table does not exist or isn't open");
+    }
+
     std:: vector<Customer*> table_customers= restaurant.getTable(tableId)->getCustomers();
     for (auto customer: table_customers )
     {
-        customer->order(restaurant.getMenu());
-        //need to add a order list
+        std:: vector<int> currOrderList = customer->order(restaurant.getMenu());
+
+        if (currOrderList.empty() == false) {
+            // Generating OrderPair fro the last dish ordered, and the customer id, hopefully thats what they order
+
+            for (auto currentOrder : currOrderList) {
+                OrderPair currOrder = std::make_pair(customer->getId(),
+                                                     *restaurant.getDish(currentOrder));
+                restaurant.getTable(tableId)->addOrder(currOrder);
+                std::cout << customer->getName() << " ordered "
+                          << restaurant.getDish(currentOrder)->getName() << std::endl;
+            }
+        }
     }
+
+    this->complete();
+
 }
 
 std::string Order::toString() const
 {
-    {
-        std:: string stat;
-        if (this->getStatus()==COMPLETED)
-            stat="COMPLETED";
-        else
-            if (this->getStatus()==ERROR)
-                stat="ERROR: "+this->getErrorMsg();
-        else
-            stat="Pending";
+
+        std::string stat;
+        if (this->getStatus() == COMPLETED) {
+            stat = this->getActionLine() + " COMPLETED";
+        }
+        else if (this->getStatus() == ERROR) {
+            stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+        }
+        else {
+            stat = "Pending";
+        }
+
         return stat;
-    }
 
 }
 
@@ -190,34 +219,48 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  BaseAction(),
 // TODO RachelBr : need to finish
 void MoveCustomer::act(Restaurant &restaurant)
 {
-    int cost=0;
-    Customer* customerToMove= nullptr;
     //origin or destination tables doesnt exist
-    if (restaurant.getTable(srcTable)== nullptr || 
-	restaurant.getTable(dstTable)== nullptr)
+    Table* tDstTable;
+    Table* tSrcTable;
+    tSrcTable = restaurant.getTable(srcTable);
+    tDstTable = restaurant.getTable(dstTable);
+
+    if (tSrcTable == nullptr ||
+	    tDstTable == nullptr)
     {
-	this->error("cannot move customer"); 
+	    this->error("cannot move customer");
     }
     //origin or destination tables closed
-    else if (!restaurant.getTable(srcTable)->isOpen() || 
-	    !restaurant.getTable(dstTable)->isOpen());
-    // TODO Add content?
+    else if (!tSrcTable->isOpen() ||
+	         !tDstTable->isOpen())
+    {
+        this->error("cannot move customer");
+    }
 
     //destination tables has no available seats
-    else if (restaurant.getTable(dstTable)->getCapacity()<=restaurant.getTable(dstTable)->getCustomers().size())
+    // TODO TomR : <= or <?
+    else if (tDstTable->getCapacity() <= tDstTable->getCustomers().size())
          {
-	   this->error("cannot move customer");
+	        this->error("cannot move customer");
 	 }
+	 // All is well i guess?
     else
         {
-            for (auto customer :restaurant.getTable(srcTable)->getCustomers())
-                if (customer->getId()==id)
-                    customerToMove=customer;
-                if (customerToMove== nullptr)
-                    this->error("cannot move customer");
-            std:: vector<int> customerOrder=customerToMove->getOrderList();
-            for (auto dish:customerOrder)
-                cost=cost+getDishFromId(dish,restaurant.getMenu()).getPrice();
+            Customer* movingCust = tSrcTable->getCustomer(id);
+            if (movingCust == nullptr)
+            {
+                this->error("cannot move customer");
+            }
+
+            // Whats happening here?
+//            std:: vector<int> customerOrder=customerToMove->getOrderList();
+  //          for (auto dish:customerOrder)
+    //            cost=cost+getDishFromId(dish,restaurant.getMenu()).getPrice();
+
+            tSrcTable->removeCustomer(id);
+            tDstTable->addCustomer(movingCust);
+            tDstTable->MoveOrders(*tSrcTable, id);
+
 
         }
 
@@ -256,7 +299,18 @@ void Close::act(Restaurant &restaurant)
 
 std::string Close::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+    if (this->getStatus()==COMPLETED) {
+        stat = this->getActionLine() + "COMPLETED";
+    }
+    else if (this->getStatus()==ERROR)
+    {
+        stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+    }
+    else
+        stat="Pending";
+    return stat;
+
 }
 
 
@@ -337,7 +391,7 @@ void PrintTableStatus::act(Restaurant &restaurant)
     Table* currTable=restaurant.getTable(tableId);
     if (currTable->isOpen())
     {
-        std:: cout<<"Table "+std::to_string(tableId)+" status: open" << std::endl;
+        std:: cout<<"Table " + std::to_string(tableId) + " status: open" << std::endl;
         std:: vector <Customer*> customers= currTable->getCustomers();
 
         std:: cout<< "Customers:"<<std:: endl;
@@ -384,11 +438,10 @@ void CloseAll::act(Restaurant &restaurant)
         if (currTable->isOpen())
         {
             currTable->closeTable();
-            std:: cout<<"Table "+std::to_string(i)+" was cosed. Bill "+std::to_string(currTable->getBill())+"NIS"<< std:: endl;
+            std:: cout<<"Table " + std::to_string(i) + " was closed. Bill "+ std::to_string(currTable->getBill()) + "NIS"<< std:: endl;
         }
     }
     restaurant.delete_tables();
-    restaurant.delete_menu();
     restaurant.delete_actionlog();
     restaurant.closeRestaurant();
 }
@@ -425,4 +478,9 @@ Dish BaseAction:: getDishFromId(int DishId,std:: vector<Dish>menu)
         if (dish.getId()==DishId)
             return dish;
     throw std:: runtime_error("dish does not exist in the menu");
+}
+
+std::string BaseAction::getActionLine() const
+{
+    return this->actionLine;
 }

@@ -4,6 +4,8 @@
 
 #include <include/Table.h>
 
+Table::Table(int t_capacity):capacity(t_capacity),
+                             open(false)
 
 
 Table:: ~Table()//dtor
@@ -87,8 +89,9 @@ int Table::getCapacity() const
 
 void Table::addCustomer(Customer *customer)
 {
-    if (customersList.size()<capacity)
-        this->customersList.push_back(customer);
+    if (customersList.size()<capacity) {
+        this->customersList.insert(this->customersList.begin(), customer);
+    }
 }
 
 
@@ -161,4 +164,35 @@ bool Table::addOrder(OrderPair opOrder)
 bool Table::isOpen()
 {
     return this->open;
+}
+
+
+
+bool Table::MoveOrders(Table &originTable, int nID)
+{
+    std::vector<OrderPair> newWorldOrder = {};
+    for (unsigned int nIndex = 0; nIndex < originTable.orderList.size(); nIndex++)
+    {
+        if (originTable.orderList[nIndex].first == nID)
+        {
+            this->orderList.push_back(originTable.orderList[nIndex]);
+
+        }
+        else {
+            newWorldOrder.push_back(originTable.orderList[nIndex]);
+        }
+    }
+
+
+    while(originTable.orderList.empty() == false)
+    {
+        originTable.orderList.pop_back();
+    }
+
+    for (auto currItem : newWorldOrder)
+    {
+        originTable.orderList.push_back(currItem);
+    }
+
+
 }
