@@ -118,8 +118,10 @@ void OpenTable::act(Restaurant &restaurant)
 	    restaurant.getTable(tableId)->openTable();
         for (auto custumer : customers)
         {
-	    restaurant.getTable(tableId)->addCustomer(custumer);
-	}
+	        restaurant.getTable(tableId)->addCustomer(custumer);
+	    }
+
+        this->complete();
     }
 }
 
@@ -157,6 +159,7 @@ void Order::act(Restaurant &restaurant)
     if (restaurant.getTable(tableId) == nullptr || !(restaurant.getTable(tableId)->isOpen()))
     {
         this->error("Table does not exist or isn't open");
+        return;
     }
 
     std:: vector<Customer*> table_customers= restaurant.getTable(tableId)->getCustomers();
@@ -236,7 +239,7 @@ void MoveCustomer::act(Restaurant &restaurant)
 
     //destination tables has no available seats
     // TODO TomR : <= or <?
-    else if (tDstTable->getCapacity() <= tDstTable->getCustomers().size())
+    else if (static_cast<unsigned int>(tDstTable->getCapacity()) <= tDstTable->getCustomers().size())
          {
 	        this->error("cannot move customer");
 	 }
@@ -258,7 +261,7 @@ void MoveCustomer::act(Restaurant &restaurant)
             tDstTable->addCustomer(movingCust);
             tDstTable->MoveOrders(*tSrcTable, id);
 
-
+            this->complete();
         }
 
     ///need to move the bill and the customer to the dst table
@@ -268,7 +271,21 @@ void MoveCustomer::act(Restaurant &restaurant)
 
 std::string MoveCustomer::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
+    else
+    {
+        // Should we get here?
+    }
+    return stat;
 }
 
 
@@ -291,6 +308,7 @@ void Close::act(Restaurant &restaurant)
     else
     {
         restaurant.getTable(this->tableId)->closeTable();
+        this->complete();
     }
 }
 
@@ -307,7 +325,6 @@ std::string Close::toString() const
     else
         stat="Pending";
     return stat;
-
 }
 
 
@@ -329,11 +346,27 @@ void PrintActionsLog::act(Restaurant &restaurant)
         // Should work i guess?
         std::cout << currLog->toString() << std::endl; 
     }
+
+    this->complete();
 }
 
 std::string PrintActionsLog::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
+    else
+    {
+        // Should we get here?
+    }
+    return stat;
 }
 /**
  * Backups a restaurant
@@ -347,12 +380,27 @@ BackupRestaurant::BackupRestaurant() : BaseAction()
 
 void BackupRestaurant::act(Restaurant &restaurant)
 {
-//    backup=new Restaurant(restaurant);
+     backup = new Restaurant(restaurant);
+     this->complete();
 }
 
 std::string BackupRestaurant::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
+    else
+    {
+        // Should we get here?
+    }
+    return stat;
 }
 
 /**
@@ -365,12 +413,29 @@ RestoreResturant::RestoreResturant() : BaseAction()
 
 void RestoreResturant::act(Restaurant &restaurant)
 {
+    new (&restaurant) Restaurant(*backup);
 
+    this->complete();
 }
 
 std::string RestoreResturant::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
+    else
+    {
+        // Should we get here?
+    }
+
+    return stat;
 }
 
 /**
@@ -386,6 +451,7 @@ PrintTableStatus::PrintTableStatus(int id) :    BaseAction(),
 void PrintTableStatus::act(Restaurant &restaurant)
 {
     Table* currTable=restaurant.getTable(tableId);
+
     if (currTable->isOpen())
     {
         std:: cout<<"Table " + std::to_string(tableId) + " status: open" << std::endl;
@@ -414,11 +480,27 @@ void PrintTableStatus::act(Restaurant &restaurant)
         std:: cout<<"Table "+std::to_string(tableId)+" status: closed" << std::endl;
     }
 
+    this->complete();
+
 }
 
 std::string PrintTableStatus::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
+    else
+    {
+        // Should we get here?
+    }
+    return stat;
 }
 
 /// Close all tables
@@ -429,7 +511,7 @@ CloseAll::CloseAll() : BaseAction()
 
 void CloseAll::act(Restaurant &restaurant)
 {
-    for (unsigned int i=0;i<restaurant.getNumOfTables();i++)
+    for (int i=0;i<restaurant.getNumOfTables();i++)
     {
         Table* currTable=restaurant.getTable(i);
         if (currTable->isOpen())
@@ -441,6 +523,9 @@ void CloseAll::act(Restaurant &restaurant)
     restaurant.delete_tables();
     restaurant.delete_actionlog();
     restaurant.closeRestaurant();
+
+    // not so important though
+    this->complete();
 }
 
 std::string CloseAll::toString() const
@@ -465,7 +550,17 @@ void PrintMenu::act(Restaurant &restaurant)
 
 std::string PrintMenu::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+    if (this->getStatus()==COMPLETED) {
+        stat = this->getActionLine() + "COMPLETED";
+    }
+    else if (this->getStatus()==ERROR)
+    {
+        stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+    }
+    else
+        stat="Pending";
+    return stat;
 }
 
 

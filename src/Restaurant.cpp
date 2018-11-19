@@ -48,9 +48,9 @@ Restaurant:: Restaurant(const Restaurant& other)//copy constructor
         this->menu.push_back(dish);
     }
 
-    for (auto table: other.tables)
+    for (auto tableP : other.tables)
     {
-        this->tables.push_back(table);
+        this->tables.push_back(new Table(*tableP));
     }
 
     for (auto action:other.actionsLog)
@@ -198,7 +198,7 @@ void Restaurant:: clear()
 
 void Restaurant::delete_tables()
 {
-    for (int i=0;i<this->tables.size();i++)
+    for (unsigned int i=0;i<this->tables.size();i++)
     {
         delete tables[i];
     }
@@ -208,7 +208,7 @@ void Restaurant::delete_tables()
 
 void Restaurant::delete_actionlog()
 {
-    for (int i=0; i<actionsLog.size();i++)
+    for (unsigned int i=0; i<actionsLog.size();i++)
     {
         delete actionsLog[i];
     }
@@ -254,7 +254,8 @@ Table* Restaurant::getTable(int ind)
 {
     // Set to unsigned, check <= or <, and check for negetive numbers
     if ((this->tables.empty()) ||
-        (tables.size()<=ind))
+        (ind < 0)              ||
+        (tables.size() < static_cast<unsigned int>(ind)))
     {
         return nullptr;
     }
@@ -275,20 +276,19 @@ void Restaurant::start()
 
     std::string strInput;
 
-    std::getline(std::cin, strInput);
-
     BaseAction* returnValue;
     LimitedFactory a;
 
-
-    returnValue = a.generateAction(strInput);
     this->openRestaurant();
 
-    while(this-isOpen)
+    // Fucking amazing mistake.
+    while(this->isOpen)
     {
-        returnValue->act(*this);
+
         std::getline(std::cin, strInput);
         returnValue = a.generateAction(strInput);
+        returnValue->act(*this);
+        this->addActionLog(returnValue);
     }
 
 }
@@ -301,6 +301,12 @@ void Restaurant::openRestaurant()
 void Restaurant::closeRestaurant()
 {
     this->isOpen = false;
+}
+
+bool Restaurant::addActionLog(BaseAction *aAction)
+{
+    this->actionsLog.push_back(aAction);
+    return true;
 }
 
 

@@ -21,14 +21,15 @@ Table:: ~Table()//dtor
 
 Table:: Table(const Table& other)//copy constructor
 {
-    this->capacity=other.capacity;
-    this->open=open;
-    for (auto dish:other.orderList)
+    this->capacity  = other.capacity;
+    this->open      = other.open;
+
+    for (auto dish : other.orderList)
     {
         this->orderList.push_back(dish);
     }
 
-    for (auto customer: other.customersList)
+    for (auto customer : other.customersList)
     {
         this->customersList.push_back(customer);
     }
@@ -39,11 +40,11 @@ Table:: Table(const Table& other)//copy constructor
 
 Table & Table:: operator=(const Table& other) //copy assignment operator
 {
-    if (this!= &other)
+    if (this != &other)
     {
 
         this->capacity=other.capacity;
-        this->open=open;
+        this->open = other.open;
 
         for (auto dish:other.orderList)
         {
@@ -84,8 +85,8 @@ int Table::getCapacity() const
 
 void Table::addCustomer(Customer *customer)
 {
-    if (customersList.size()<capacity) {
-        this->customersList.insert(this->customersList.begin(), customer);
+    if (customersList.size() < static_cast<unsigned int>(capacity)) {
+        this->customersList.push_back(customer);
     }
 }
 
@@ -178,7 +179,6 @@ bool Table::MoveOrders(Table &originTable, int nID)
         }
     }
 
-
     while(originTable.orderList.empty() == false)
     {
         originTable.orderList.pop_back();
@@ -189,5 +189,5 @@ bool Table::MoveOrders(Table &originTable, int nID)
         originTable.orderList.push_back(currItem);
     }
 
-
+    return true;
 }

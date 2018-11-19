@@ -3,7 +3,8 @@ project(ass1)
 
 set(CMAKE_CXX_STANDARD 14)
 
-set(CMAKE_CXX_FLAGS_RELEASE -Wall)
+set(CMAKE_CXX_FLAGS_DEBUG "-g3 -Wall")
+#set(CMAKE_CXX_FLAGS_DEBUG -Wall)
 
 include_directories(.)
 

@@ -26,6 +26,9 @@ public:
 //	Customer(Customer&& other); //move constructor
 //	Customer&operator=(Customer&& other);//move assignment operator
 
+
+// TODO TomR : If we don't use a virtual destructor, we can't delete a "Customer"  and expect him to arrive to the right dtor
+
     Customer(std::string c_name, int c_id);
     virtual std::vector<int> order(const std::vector<Dish> &menu)=0;
     virtual std::string toString() const = 0;

@@ -163,13 +163,15 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
 {
     int large_price=-1;
     int food_id=-1;
-    int small_price=-1;
+    unsigned int small_price = INT32_MAX;
+    this->order_list = {};
 
     if (this->ordered == 0)
     {
         for (auto dish: menu)
         {
-            if (dish.getPrice()>=large_price&&dish.getType()==SPC)
+            if ((dish.getPrice()>=large_price) &&
+                (dish.getType()==SPC))
             {
                 food_id=dish.getId();
                 large_price=dish.getPrice();
@@ -180,13 +182,15 @@ std::vector<int> SpicyCustomer::order(const std::vector<Dish> &menu)
     {
         for (auto dish: menu)
         {
-            if(dish.getType()==BVG&&(small_price||dish.getPrice()<=small_price))
+            // TODO TomR : Should we look for negetive prices?
+            if((dish.getType() == BVG) &&  (static_cast<unsigned int>(dish.getPrice()) <= small_price) )
             {
-                food_id=dish.getId();
-                small_price=dish.getPrice();
+                food_id = dish.getId();
+                small_price = dish.getPrice();
             }
         }
     }
+
     this->ordered++;
     this->order_list.push_back(food_id);
     return this->order_list;
@@ -228,7 +232,7 @@ std::vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu)
                   this->sortedPricesArray .begin() + this->sortedPricesArray .size());
     }
 
-    if (ordered < this->sortedPricesArray.size()){
+    if (static_cast<unsigned int>(ordered) < this->sortedPricesArray.size()){
         Dish PricyDish = BaseAction::getDishFromId(this->sortedPricesArray[ordered].id, menu);
         this->order_list.push_back(PricyDish.getId());
     }
