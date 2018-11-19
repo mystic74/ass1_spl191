@@ -63,14 +63,72 @@ Table & Table:: operator=(const Table& other) //copy assignment operator
     return (*this);
 }
 
-///TODO Rachel :finish move constructor and move assignment in Table
 Table:: Table(Table&& other)//move constructor
 {
+    this->capacity=other.capacity;
+    this->open=open;
+    for (auto dish:other.orderList)
+    {
+        this->orderList.push_back(dish);
+    }
+
+    for (auto customer: other.customersList)
+    {
+        this->customersList.push_back(customer);
+    }
+
+
+    other.capacity=0;
+    other.open=false;
+
+
+    for (auto customer: other.customersList)
+    {
+        customer= nullptr;
+    }
+
 
 }
 
 Table& Table:: operator=(Table&& other)//move assignment operator
 {
+    if (this!= &other)
+    {
+        this->capacity=other.capacity;
+        this->open=open;
+
+        for (auto dish:other.orderList)
+        {
+            this->orderList.push_back(dish);
+        }
+
+        for (auto customer: this->customersList)
+        {
+            delete customer;
+        }
+
+        for (auto customer: other.customersList)
+        {
+            this->customersList.push_back(customer);
+        }
+
+
+
+        other.capacity=0;
+        other.open=false;
+
+
+
+        for (auto customer: other.customersList)
+        {
+            customer= nullptr;
+        }
+
+
+
+    }
+    return (*this);
+
 
 
 }

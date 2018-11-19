@@ -39,7 +39,7 @@ Restaurant:: Restaurant(const Restaurant& other)//copy constructor
 
     for (int i=0;i<NUM_OF_PARAMS;i++)
     {
-        this->params_set[i];
+        this->params_set[i]=other.params_set[i];
     }
 
 
@@ -72,7 +72,7 @@ Restaurant & Restaurant::  operator=(const Restaurant& other) //copy assignment 
 
         for (int i=0;i<NUM_OF_PARAMS;i++)
         {
-            this->params_set[i];
+            this->params_set[i]=other.params_set[i];
         }
 
         for (auto dish:other.menu)
@@ -105,16 +105,108 @@ Restaurant & Restaurant::  operator=(const Restaurant& other) //copy assignment 
     return (*this);
 }
 
-///TODO Rachel :finish move constructor and move assignment in Restaurant
 Restaurant:: Restaurant(Restaurant&& other)//move constructor
 {
+    this->open=other.open;
+    this->isOpen=other.isOpen;
+    this->nNumOfTables=other.getNumOfTables();
+
+    for (int i=0;i<NUM_OF_PARAMS;i++)
+    {
+        this->params_set[i]=other.params_set[i];
+    }
+
+
+    for (auto dish:other.menu)
+    {
+        this->menu.push_back(dish);
+    }
+
+    for (auto table: other.tables)
+    {
+        this->tables.push_back(table);
+    }
+
+    for (auto action:other.actionsLog)
+    {
+        this->actionsLog.push_back(action);
+    }
+
+
+
+    other.open=false;
+    other.isOpen=false;
+    other.nNumOfTables=0;
+
+    for (auto table: other.tables)
+    {
+        table= nullptr;
+    }
+
+    for (auto action:other.actionsLog)
+    {
+        action= nullptr;
+    }
 
 }
 
 
 Restaurant& Restaurant:: operator=(Restaurant&& other)//move assignment operator
 {
+    if (this != &other)
+    {
+        this->open=other.open;
+        this->isOpen=other.isOpen;
+        this->nNumOfTables=other.getNumOfTables();
 
+        for (int i=0;i<NUM_OF_PARAMS;i++)
+        {
+            this->params_set[i]=other.params_set[i];
+        }
+
+        for (auto dish:other.menu)
+        {
+            this->menu.push_back(dish);
+        }
+
+        for (auto table: this->tables)
+        {
+            delete table;
+        }
+
+        for (auto table: other.tables)
+        {
+            this->tables.push_back(table);
+        }
+
+        for (auto action:this->actionsLog)
+        {
+            delete action;
+        }
+
+        for (auto action: other.actionsLog)
+        {
+            this->actionsLog.push_back(action);
+        }
+
+
+    }
+
+    other.open=false;
+    other.isOpen=false;
+    other.nNumOfTables=0;
+
+    for (auto table: other.tables)
+    {
+        table= nullptr;
+    }
+
+    for (auto action:other.actionsLog)
+    {
+        action= nullptr;
+    }
+
+    return (*this);
 }
 
 
