@@ -30,11 +30,11 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
                 for (auto str : customerts_str){
 
                     Customer* tempC = cF.generateCustomer(Customer::stringToEnum(str.substr(str.find(',') + 1)),
-                                                      ++Restaurant::customer_id,
-                                                      str.substr(0, str.find(',')));
+                                                          Restaurant::customer_id,
+                                                          str.substr(0, str.find(',')));
+                    Restaurant::customer_id++;
 
                     cList.insert(cList.begin(), tempC);
-                    
                 }
 
                 returnValue = new OpenTable(std::stoi(str_number_of_tables), cList);
@@ -82,9 +82,8 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
                 returnValue = new RestoreResturant();
 
             }
-
-            returnValue->setActionLine(actionLine);
         }
+        returnValue->setActionLine(actionLine);
     }
     return returnValue;
 }

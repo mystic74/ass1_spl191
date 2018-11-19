@@ -205,8 +205,10 @@ void Restaurant::start()
     while(this-isOpen)
     {
         returnValue->act(*this);
+        this->addActionLog(returnValue);
         std::getline(std::cin, strInput);
         returnValue = a.generateAction(strInput);
+
     }
 
 }
@@ -219,5 +221,11 @@ void Restaurant::openRestaurant()
 void Restaurant::closeRestaurant()
 {
     this->isOpen = false;
+}
+
+bool Restaurant::addActionLog(BaseAction* aAction)
+{
+    this->actionsLog.push_back(aAction);
+    return true;
 }
 

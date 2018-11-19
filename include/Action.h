@@ -24,6 +24,7 @@ protected:
     void complete();
     void error(std::string errorMsg);
     std::string getErrorMsg() const;
+    std::string getActionLine() const;
 private:
     std::string actionLine;
     std::string errorMsg;

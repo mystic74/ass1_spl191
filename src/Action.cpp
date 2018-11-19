@@ -22,7 +22,10 @@ void BaseAction::complete()
 void BaseAction::error(std::string errorMsg)
 {
     this->status = ERROR;
+
     this->errorMsg = errorMsg;
+
+    std::cout << "ERROR : " + errorMsg << std::endl;
 }
 
 std::string BaseAction::getErrorMsg() const
@@ -46,8 +49,9 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  BaseActi
 void OpenTable::act(Restaurant &restaurant)
 {
 
-    if (restaurant.getTable(tableId)== nullptr||restaurant.getTable(tableId)->isOpen())
+    if (restaurant.getTable(tableId)== nullptr || restaurant.getTable(tableId)->isOpen()) {
         this->error("Table does not exist or already open");
+    }
     else
     {
 	    restaurant.getTable(tableId)->openTable();
@@ -61,13 +65,19 @@ void OpenTable::act(Restaurant &restaurant)
 std::string OpenTable::toString() const
 {
     std:: string stat;
-    if (this->getStatus()==COMPLETED)
-        stat="COMPLETED";
+
+    if (this->getStatus() == COMPLETED)
+    {
+        stat = this->getActionLine() +  " COMPLETED ";
+    }
+    else if (this->getStatus() == ERROR)
+    {
+        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+    }
     else
-        if (this->getStatus()==ERROR)
-            stat="ERROR: "+this->getErrorMsg();
-    else
-        stat="Pending";
+    {
+        // Should we get here?
+    }
     return stat;
 }
 
@@ -106,22 +116,25 @@ void Order::act(Restaurant &restaurant)
         }
     }
 
+    this->complete();
 
 }
 
 std::string Order::toString() const
 {
-    {
-        std:: string stat;
-        if (this->getStatus()==COMPLETED)
-            stat="COMPLETED";
-        else
-            if (this->getStatus()==ERROR)
-                stat="ERROR: " + this->getErrorMsg();
-        else
-            stat="Pending";
+
+        std::string stat;
+        if (this->getStatus() == COMPLETED) {
+            stat = this->getActionLine() + " COMPLETED";
+        }
+        else if (this->getStatus() == ERROR) {
+            stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+        }
+        else {
+            stat = "Pending";
+        }
+
         return stat;
-    }
 
 }
 
@@ -142,10 +155,9 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  BaseAction(),
 // TODO RachelBr : need to finish
 void MoveCustomer::act(Restaurant &restaurant)
 {
-    int cost=0;
-    Customer* customerToMove= nullptr;
     //origin or destination tables doesnt exist
-    Table* tDstTable, tSrcTable;
+    Table* tDstTable;
+    Table* tSrcTable;
     tSrcTable = restaurant.getTable(srcTable);
     tDstTable = restaurant.getTable(dstTable);
 
@@ -183,7 +195,7 @@ void MoveCustomer::act(Restaurant &restaurant)
 
             tSrcTable->removeCustomer(id);
             tDstTable->addCustomer(movingCust);
-            tDstTable->MoveOrders(tDstTable, id);
+            tDstTable->MoveOrders(*tSrcTable, id);
 
 
         }
@@ -223,7 +235,18 @@ void Close::act(Restaurant &restaurant)
 
 std::string Close::toString() const
 {
-    return std::__cxx11::string();
+    std:: string stat;
+    if (this->getStatus()==COMPLETED) {
+        stat = this->getActionLine() + "COMPLETED";
+    }
+    else if (this->getStatus()==ERROR)
+    {
+        stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+    }
+    else
+        stat="Pending";
+    return stat;
+
 }
 
 
@@ -389,4 +412,9 @@ Dish BaseAction:: getDishFromId(int DishId,std:: vector<Dish>menu)
         if (dish.getId()==DishId)
             return dish;
     throw std:: runtime_error("dish does not exist in the menu");
+}
+
+std::string BaseAction::getActionLine() const
+{
+    return this->actionLine;
 }

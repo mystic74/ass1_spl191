@@ -112,6 +112,16 @@ bool Table::MoveOrders(Table &originTable, int nID)
         }
     }
 
-    originTable.orderList = newWorldOrder;
+
+    while(originTable.orderList.empty() == false)
+    {
+        originTable.orderList.pop_back();
+    }
+
+    for (auto currItem : newWorldOrder)
+    {
+        originTable.orderList.push_back(currItem);
+    }
+
 
 }
