@@ -43,8 +43,8 @@ Table & Table:: operator=(const Table& other) //copy assignment operator
     if (this != &other)
     {
 
-        this->capacity=other.capacity;
-        this->open = other.open;
+        this->capacity  = other.capacity;
+        this->open      = other.open;
 
         for (auto dish:other.orderList)
         {
@@ -67,7 +67,7 @@ Table & Table:: operator=(const Table& other) //copy assignment operator
 ///TODO Rachel :finish move constructor and move assignment in Table
 Table:: Table(Table&& other)//move constructor
 {
-
+    
 }
 
 Table& Table:: operator=(Table&& other)//move assignment operator
