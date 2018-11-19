@@ -19,6 +19,13 @@ enum CustomerType{
 
 class Customer{
 public:
+	/// TODO :rule of 5?
+//	~Customer();//dtor
+//	Customer(const Customer& other);//copy constructor
+//	Customer & operator=(const Customer& other); //copy assignment operator
+//	Customer(Customer&& other); //move constructor
+//	Customer&operator=(Customer&& other);//move assignment operator
+
     Customer(std::string c_name, int c_id);
     virtual std::vector<int> order(const std::vector<Dish> &menu)=0;
     virtual std::string toString() const = 0;

@@ -14,6 +14,102 @@
 
 using namespace std;
 
+
+Restaurant::~Restaurant()//dtor
+{
+    for (auto table: tables)
+    {
+        delete table;
+    }
+
+    for (auto action: actionsLog)
+    {
+        delete action;
+    }
+
+}
+
+
+
+Restaurant:: Restaurant(const Restaurant& other)//copy constructor
+{
+    this->open=other.open;
+    this->isOpen=other.isOpen;
+    this->getNumOfTables()=other.getNumOfTables();
+    this->params_set=other.params_set;
+
+    for (auto dish:other.menu)
+    {
+        this->menu.push_back(dish);
+    }
+
+    for (auto table: other.tables)
+    {
+        this->tables.push_back(table);
+    }
+
+    for (auto action:other.actionsLog)
+    {
+        this->actionsLog.push_back(action);
+    }
+
+
+}
+
+
+Restaurant & Restaurant::  operator=(const Restaurant& other) //copy assignment operator
+{
+    if (this!=other)
+    {
+        this->open=other.open;
+        this->isOpen=other.isOpen;
+        this->getNumOfTables()=other.getNumOfTables();
+        this->params_set=other.params_set;
+
+        for (auto dish:other.menu)
+        {
+            this->menu.push_back(dish);
+        }
+
+        for (auto table: this->tables)
+        {
+            delete table;
+        }
+
+        for (auto table: other.tables)
+        {
+            this->tables.push_back(table);
+        }
+
+        for (auto action:this->actionsLog)
+        {
+            delete action;
+        }
+
+        for (auto action: other.actionsLog)
+        {
+            this->actionsLog.push_back(action);
+        }
+
+
+    }
+    return (*this);
+}
+
+///TODO Rachel :finish move constructor and move assignment in Restaurant
+Restaurant:: Restaurant(Restaurant&& other)//move constructor
+{
+
+}
+
+
+Restaurant& Restaurant:: operator=(Restaurant&& other)//move assignment operator
+{
+
+}
+
+
+
 int Restaurant::customer_id;
 Restaurant::Restaurant()
 {
@@ -79,30 +175,7 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 
 }
 
-//copy constructor
-Restaurant::Restaurant(const Restaurant& a_Restaurant)
-{
 
-    this->copy(a_Restaurant);
-}
-
-//destructor
-Restaurant:: ~Restaurant(){
-   clear();
-
-}
-
-Restaurant & Restaurant::operator=(const Restaurant & a_Restaurant)
-{
-    if (this==&a_Restaurant){
-        return *this;
-    }
-    clear();
-    this->copy(a_Restaurant);
-    return *this;
-
-
-}
 
 
 

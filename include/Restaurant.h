@@ -21,11 +21,17 @@ enum FILE_PARAMS
 
 class Restaurant{		
 public:
+    /// rule of 5
+    ~Restaurant();//dtor
+    Restaurant(const Restaurant& other);//copy constructor
+    Restaurant & operator=(const Restaurant& other); //copy assignment operator
+    Restaurant(Restaurant&& other); //move constructor
+    Restaurant& operator=(Restaurant&& other);//move assignment operator
+
+
 	Restaurant();
     Restaurant(const std::string &configFilePath);
     void start();
-    Restaurant(const Restaurant& a_Restaurant);
-    ~Restaurant();
     Restaurant & operator=(const Restaurant & a_Restaurant);
     
     int getNumOfTables() const;

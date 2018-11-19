@@ -3,6 +3,7 @@
 **/
 #include <include/Action.h>
 #include <include/Restaurant.h>
+extern Restaurant* backup;
 
 BaseAction::BaseAction()
 {
@@ -42,6 +43,69 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  BaseActi
 {
 
 }
+
+
+
+OpenTable:: ~OpenTable()//dtor
+{
+    for (auto  customer:customers)
+    {
+        delete customer;
+    }
+}
+
+
+OpenTable:: OpenTable(const OpenTable& other)//copy constructor
+{
+    this->tableId=other.tableId;
+
+
+    for (auto customer: other.customers)
+    {
+        this->customers.push_back(customer);
+    }
+}
+
+
+OpenTable & OpenTable:: operator=(const OpenTable& other) //copy assignment operator
+{
+    if (this!=other)
+    {
+
+        this->tableId=other.tableId;
+
+
+
+        for (auto customer: this->customers)
+        {
+            delete customer;
+        }
+
+        for (auto customer: other.customers)
+        {
+            this->customers.push_back(customer);
+        }
+    }
+    return (*this);
+
+}
+
+///TODO Rachel :finish move constructor and move assignment in Action-OpenTable
+OpenTable:: OpenTable(OpenTable&& other) //move constructor
+{
+
+}
+
+
+OpenTable & OpenTable:: operator=(OpenTable&& other)//move assignment operator
+{
+
+}
+
+
+
+
+
 
 void OpenTable::act(Restaurant &restaurant)
 {
@@ -228,9 +292,11 @@ BackupRestaurant::BackupRestaurant() : BaseAction()
 
 }
 
+
+
 void BackupRestaurant::act(Restaurant &restaurant)
 {
-
+//    backup=new Restaurant(restaurant);
 }
 
 std::string BackupRestaurant::toString() const

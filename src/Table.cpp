@@ -4,6 +4,75 @@
 
 #include <include/Table.h>
 
+
+
+Table:: ~Table()//dtor
+{
+    for (auto customer: customersList)
+    {
+        delete customer;
+    }
+}
+
+
+Table:: Table(const Table& other)//copy constructor
+{
+    this->capacity=other.capacity;
+    this->open=open;
+    for (auto dish:other.orderList)
+    {
+        this->orderList.push_back(dish);
+    }
+
+    for (auto customer: other.customersList)
+    {
+        this->customersList.push_back(customer);
+    }
+
+}
+
+
+
+Table & Table:: operator=(const Table& other) //copy assignment operator
+{
+    if (this!=other)
+    {
+
+        this->capacity=other.capacity;
+        this->open=open;
+
+        for (auto dish:other.orderList)
+        {
+            this->orderList.push_back(dish);
+        }
+
+        for (auto customer: this->customersList)
+        {
+            delete customer;
+        }
+
+        for (auto customer: other.customersList)
+        {
+            this->customersList.push_back(customer);
+        }
+    }
+    return (*this);
+}
+
+///TODO Rachel :finish move constructor and move assignment in Table
+Table:: Table(Table&& other)//move constructor
+{
+
+}
+
+Table& Table:: operator=(Table&& other)//move assignment operator
+{
+
+
+}
+
+
+
 Table::Table(int t_capacity):capacity(t_capacity)
                             , open(true)
 {
