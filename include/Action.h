@@ -41,12 +41,12 @@ private:
 
 class OpenTable : public BaseAction {
 public:
-	/// rule of 5
-	~OpenTable();//dtor
-	OpenTable(const OpenTable& other);//copy constructor
-	OpenTable & operator=(const OpenTable& other); //copy assignment operator
-	OpenTable(OpenTable&& other); //move constructor
-	OpenTable &operator=(OpenTable&& other);//move assignment operator
+	/// rule of 5?
+//	~OpenTable();//dtor
+//	OpenTable(const OpenTable& other);//copy constructor
+//	OpenTable & operator=(const OpenTable& other); //copy assignment operator
+//	OpenTable(OpenTable&& other); //move constructor
+//	OpenTable &operator=(OpenTable&& other);//move assignment operator
 
 
     OpenTable(int id, std::vector<Customer *> &customersList);

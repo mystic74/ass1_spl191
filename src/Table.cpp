@@ -6,7 +6,9 @@
 
 Table::Table(int t_capacity):capacity(t_capacity),
                              open(false)
+{
 
+}
 
 Table:: ~Table()//dtor
 {
@@ -37,7 +39,7 @@ Table:: Table(const Table& other)//copy constructor
 
 Table & Table:: operator=(const Table& other) //copy assignment operator
 {
-    if (this!=other)
+    if (this!= &other)
     {
 
         this->capacity=other.capacity;
@@ -74,13 +76,6 @@ Table& Table:: operator=(Table&& other)//move assignment operator
 }
 
 
-
-Table::Table(int t_capacity):capacity(t_capacity)
-                            , open(true)
-{
-
-
-}
 
 int Table::getCapacity() const
 {

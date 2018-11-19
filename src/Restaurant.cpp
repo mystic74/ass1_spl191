@@ -35,8 +35,13 @@ Restaurant:: Restaurant(const Restaurant& other)//copy constructor
 {
     this->open=other.open;
     this->isOpen=other.isOpen;
-    this->getNumOfTables()=other.getNumOfTables();
-    this->params_set=other.params_set;
+    this->nNumOfTables=other.getNumOfTables();
+
+    for (int i=0;i<NUM_OF_PARAMS;i++)
+    {
+        this->params_set[i];
+    }
+
 
     for (auto dish:other.menu)
     {
@@ -59,12 +64,16 @@ Restaurant:: Restaurant(const Restaurant& other)//copy constructor
 
 Restaurant & Restaurant::  operator=(const Restaurant& other) //copy assignment operator
 {
-    if (this!=other)
+    if (this != &other)
     {
         this->open=other.open;
         this->isOpen=other.isOpen;
-        this->getNumOfTables()=other.getNumOfTables();
-        this->params_set=other.params_set;
+        this->nNumOfTables=other.getNumOfTables();
+
+        for (int i=0;i<NUM_OF_PARAMS;i++)
+        {
+            this->params_set[i];
+        }
 
         for (auto dish:other.menu)
         {

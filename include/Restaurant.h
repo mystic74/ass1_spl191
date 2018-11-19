@@ -33,8 +33,7 @@ public:
 	Restaurant();
     Restaurant(const std::string &configFilePath);
     void start();
-    Restaurant & operator=(const Restaurant & a_Restaurant);
-    
+
     int getNumOfTables() const;
     int getNumOfDishes() const;
     int getNumOfActionlog() const;
