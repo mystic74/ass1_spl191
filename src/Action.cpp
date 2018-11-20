@@ -144,6 +144,10 @@ std::string OpenTable::toString() const
     return stat;
 }
 
+BaseAction *OpenTable::Clone()
+{
+    return new OpenTable(*this);
+}
 
 
 /// Generating Order
@@ -200,6 +204,11 @@ std::string Order::toString() const
 
         return stat;
 
+}
+
+BaseAction *Order::Clone()
+{
+    return new Order(*this);
 }
 
 
@@ -288,6 +297,11 @@ std::string MoveCustomer::toString() const
     return stat;
 }
 
+BaseAction *MoveCustomer::Clone()
+{
+    return new MoveCustomer(*this);
+}
+
 
 /// Close a table
 /// \param id The table that we close
@@ -325,6 +339,11 @@ std::string Close::toString() const
     else
         stat="Pending";
     return stat;
+}
+
+BaseAction *Close::Clone()
+{
+    return new Close(*this);
 }
 
 
@@ -368,6 +387,12 @@ std::string PrintActionsLog::toString() const
     }
     return stat;
 }
+
+BaseAction *PrintActionsLog::Clone()
+{
+    return new PrintActionsLog(*this);
+}
+
 /**
  * Backups a restaurant
  * */
@@ -403,6 +428,11 @@ std::string BackupRestaurant::toString() const
     return stat;
 }
 
+BaseAction *BackupRestaurant::Clone()
+{
+    return new BackupRestaurant(*this);
+}
+
 /**
  * Restores a restuarant from backup
  * */
@@ -436,6 +466,11 @@ std::string RestoreResturant::toString() const
     }
 
     return stat;
+}
+
+BaseAction *RestoreResturant::Clone()
+{
+    return new RestoreResturant(*this);
 }
 
 /**
@@ -503,6 +538,11 @@ std::string PrintTableStatus::toString() const
     return stat;
 }
 
+BaseAction *PrintTableStatus::Clone()
+{
+    return new PrintTableStatus(*this);
+}
+
 /// Close all tables
 CloseAll::CloseAll() : BaseAction()
 {
@@ -533,6 +573,11 @@ std::string CloseAll::toString() const
     return std::__cxx11::string();
 }
 
+BaseAction *CloseAll::Clone()
+{
+    return new CloseAll(*this);
+}
+
 /// Prints the menu
 PrintMenu::PrintMenu() : BaseAction()
 {
@@ -561,6 +606,11 @@ std::string PrintMenu::toString() const
     else
         stat="Pending";
     return stat;
+}
+
+BaseAction *PrintMenu::Clone()
+{
+    return new PrintMenu(*this);
 }
 
 

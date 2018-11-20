@@ -26,17 +26,17 @@ Restaurant::~Restaurant()//dtor
 Restaurant:: Restaurant(const Restaurant& other)//copy constructor
 {
     this->clear();
-    this->open=other.open;
-    this->isOpen=other.isOpen;
-    this->nNumOfTables=other.getNumOfTables();
+    this->open          = other.open;
+    this->isOpen        = other.isOpen;
+    this->nNumOfTables  = other.getNumOfTables();
 
     for (int i=0;i<NUM_OF_PARAMS;i++)
     {
-        this->params_set[i]=other.params_set[i];
+        this->params_set[i] = other.params_set[i];
     }
 
 
-    for (auto dish:other.menu)
+    for (auto dish : other.menu)
     {
         this->menu.push_back(dish);
     }
@@ -48,7 +48,7 @@ Restaurant:: Restaurant(const Restaurant& other)//copy constructor
 
     for (auto action:other.actionsLog)
     {
-        this->actionsLog.push_back(action);
+        this->actionsLog.push_back(action->Clone());
     }
 
 
@@ -203,8 +203,8 @@ Restaurant::Restaurant() :  open(false),
                             params_set{false}
 {
     Restaurant::customer_id = 0;
-    this->tables = {nullptr};
-    this->actionsLog = {nullptr};
+    //this->tables = {nullptr};
+    //this->actionsLog = {nullptr};
 }
 
 
@@ -241,7 +241,7 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
                     this->tables.insert(this->tables.begin(), currTable);
                 }
 
-                assert(this->tables.size() == ((unsigned int)this->nNumOfTables));
+               // assert(this->tables.size() == ((unsigned int)this->nNumOfTables));
                 params_set[TABLES_DESCRIPTION] = true;
             }
             else
@@ -257,9 +257,6 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
                                           Dish::stringToEnum(tablesVec[DISH_CATAGORY]));
 
                 this->menu.push_back(*currDish);
-
-
-
             }
         }
     }

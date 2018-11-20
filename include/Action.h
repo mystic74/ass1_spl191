@@ -27,6 +27,7 @@ public:
     virtual std::string toString() const=0;
     static Dish getDishFromId(int DishId,std:: vector<Dish>menu);
     bool setActionLine(std::string stdLine);
+    virtual BaseAction* Clone() = 0;
 protected:
     void complete();
     void error(std::string errorMsg);
@@ -52,6 +53,7 @@ public:
     OpenTable(int id, std::vector<Customer *> &customersList);
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
 	const int tableId;
 	std::vector<Customer *> customers;
@@ -63,6 +65,7 @@ public:
     Order(int id);
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
     const int tableId;
 };
@@ -73,6 +76,7 @@ public:
     MoveCustomer(int src, int dst, int customerId);
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
     const int srcTable;
     const int dstTable;
@@ -85,6 +89,7 @@ public:
     Close(int id);
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
     const int tableId;
 };
@@ -95,6 +100,7 @@ public:
     CloseAll();
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
 };
 
@@ -104,6 +110,7 @@ public:
     PrintMenu();
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
 };
 
@@ -113,6 +120,7 @@ public:
     PrintTableStatus(int id);
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
     const int tableId;
 };
@@ -123,6 +131,7 @@ public:
     PrintActionsLog();
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
 };
 
@@ -132,6 +141,7 @@ public:
     BackupRestaurant();
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 private:
 };
 
@@ -141,6 +151,7 @@ public:
     RestoreResturant();
     void act(Restaurant &restaurant);
     std::string toString() const;
+	BaseAction* Clone();
 
 };
 
