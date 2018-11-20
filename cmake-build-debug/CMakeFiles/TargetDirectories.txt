@@ -1,3 +1,0 @@
-/home/rachel/CLionProjects/ass1_spl191/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/home/rachel/CLionProjects/ass1_spl191/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/rachel/CLionProjects/ass1_spl191/cmake-build-debug/CMakeFiles/ass1.dir
