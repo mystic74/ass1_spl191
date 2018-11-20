@@ -83,8 +83,9 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
 
             }
         }
-        returnValue->setActionLine(actionLine);
     }
+
+    returnValue->setActionLine(actionLine);
     return returnValue;
 }
 

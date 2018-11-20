@@ -19,7 +19,11 @@ enum CustomerType{
 
 class Customer{
 public:
+    	/// TODO :rule of 5?
+    virtual	~Customer() {};//dtor
 
+
+// TODO TomR : If we don't use a virtual destructor, we can't delete a "Customer"  and expect him to arrive to the right dtor
 
     Customer(std::string c_name, int c_id);
     virtual std::vector<int> order(const std::vector<Dish> &menu)=0;
@@ -29,6 +33,8 @@ public:
     const static std::string enumToString(const CustomerType  nNum);
     const static CustomerType stringToEnum(std::string strName);
     std:: vector<int>  getOrderList()const;
+
+    virtual Customer* Clone() = 0;
 private:
     const std::string name;
     const int id;
@@ -44,6 +50,7 @@ public:
 	VegetarianCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 };
 
@@ -53,6 +60,7 @@ public:
 	CheapCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 };
 
@@ -62,6 +70,7 @@ public:
 	SpicyCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 };
 
@@ -87,6 +96,7 @@ public:
 	AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 	std::vector<DishPrice> sortedPricesArray;
 };

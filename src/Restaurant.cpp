@@ -17,22 +17,15 @@ using namespace std;
 
 Restaurant::~Restaurant()//dtor
 {
-    for (auto table: tables)
-    {
-        delete table;
-    }
-
-    for (auto action: actionsLog)
-    {
-        delete action;
-    }
-
+    this->delete_tables();
+    this->delete_actionlog();
 }
 
 
 
 Restaurant:: Restaurant(const Restaurant& other)//copy constructor
 {
+    this->clear();
     this->open=other.open;
     this->isOpen=other.isOpen;
     this->nNumOfTables=other.getNumOfTables();
@@ -48,9 +41,9 @@ Restaurant:: Restaurant(const Restaurant& other)//copy constructor
         this->menu.push_back(dish);
     }
 
-    for (auto table: other.tables)
+    for (auto tableP : other.tables)
     {
-        this->tables.push_back(table);
+        this->tables.push_back(new Table(*tableP));
     }
 
     for (auto action:other.actionsLog)
@@ -66,13 +59,15 @@ Restaurant & Restaurant::  operator=(const Restaurant& other) //copy assignment 
 {
     if (this != &other)
     {
-        this->open=other.open;
-        this->isOpen=other.isOpen;
-        this->nNumOfTables=other.getNumOfTables();
+        this->clear();
+
+        this->open          = other.open;
+        this->isOpen        = other.isOpen;
+        this->nNumOfTables  = other.getNumOfTables();
 
         for (int i=0;i<NUM_OF_PARAMS;i++)
         {
-            this->params_set[i]=other.params_set[i];
+            this->params_set[i] = other.params_set[i];
         }
 
         for (auto dish:other.menu)
@@ -80,19 +75,9 @@ Restaurant & Restaurant::  operator=(const Restaurant& other) //copy assignment 
             this->menu.push_back(dish);
         }
 
-        for (auto table: this->tables)
-        {
-            delete table;
-        }
-
         for (auto table: other.tables)
         {
             this->tables.push_back(table);
-        }
-
-        for (auto action:this->actionsLog)
-        {
-            delete action;
         }
 
         for (auto action: other.actionsLog)
@@ -212,10 +197,14 @@ Restaurant& Restaurant:: operator=(Restaurant&& other)//move assignment operator
 
 
 int Restaurant::customer_id;
-Restaurant::Restaurant()
+Restaurant::Restaurant() :  open(false),
+                            isOpen(false),
+                            nNumOfTables(0),
+                            params_set{false}
 {
     Restaurant::customer_id = 0;
-
+    this->tables = {nullptr};
+    this->actionsLog = {nullptr};
 }
 
 
@@ -233,14 +222,15 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 
                 continue;
             }
-            else if (params_set[AMOUNT_OF_TABLES] == false)
+            else if (!params_set[AMOUNT_OF_TABLES])
             {
                 this->nNumOfTables = std::stoi(cur_line);
                 params_set[AMOUNT_OF_TABLES] = true;
             }
-            else if (params_set[TABLES_DESCRIPTION] == false)
+            else if (!params_set[TABLES_DESCRIPTION])
             {
                 std::vector<std::string> tablesVec = split(cur_line, ',');
+
                 for (const auto strTab : tablesVec)
                 {
                     // TODO TomR : Check for errors
@@ -277,11 +267,6 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 }
 
 
-
-
-
-
-
 void Restaurant:: clear()
 {
     delete_tables();
@@ -290,21 +275,28 @@ void Restaurant:: clear()
 
 void Restaurant::delete_tables()
 {
-    for (int i=0;i<this->tables.size();i++)
+    for (unsigned int i=0; i < this->tables.size() ; i++)
     {
-        delete tables[i];
+        if (tables[i] != nullptr)
+        {
+            cout << "Deleteing Table " << std::to_string(i) << endl;
+            delete tables[i];
+            tables[i] = nullptr;
+        }
     }
-
 }
 
 
 void Restaurant::delete_actionlog()
 {
-    for (int i=0; i<actionsLog.size();i++)
+    for (unsigned int i=0; i < actionsLog.size(); i++)
     {
-        delete actionsLog[i];
+        if (actionsLog[i] != nullptr)
+        {
+            delete actionsLog[i];
+            actionsLog[i] = nullptr;
+        }
     }
-
 }
 
 
@@ -346,7 +338,8 @@ Table* Restaurant::getTable(int ind)
 {
     // Set to unsigned, check <= or <, and check for negetive numbers
     if ((this->tables.empty()) ||
-        (tables.size()<=ind))
+        (ind < 0)              ||
+        (tables.size() < static_cast<unsigned int>(ind)))
     {
         return nullptr;
     }
@@ -367,20 +360,19 @@ void Restaurant::start()
 
     std::string strInput;
 
-    std::getline(std::cin, strInput);
-
     BaseAction* returnValue;
     LimitedFactory a;
 
-
-    returnValue = a.generateAction(strInput);
     this->openRestaurant();
 
-    while(this-isOpen)
+    // Fucking amazing mistake.
+    while(this->isOpen)
     {
-        returnValue->act(*this);
+
         std::getline(std::cin, strInput);
         returnValue = a.generateAction(strInput);
+        returnValue->act(*this);
+        this->addActionLog(returnValue);
     }
 
 }
@@ -393,6 +385,12 @@ void Restaurant::openRestaurant()
 void Restaurant::closeRestaurant()
 {
     this->isOpen = false;
+}
+
+bool Restaurant::addActionLog(BaseAction *aAction)
+{
+    this->actionsLog.push_back(aAction);
+    return true;
 }
 
 

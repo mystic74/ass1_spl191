@@ -15,7 +15,7 @@ class Restaurant;
 class BaseAction{
 public:
 	/// TODO:rule of 5?
-//	~BaseAction();//dtor
+	virtual ~BaseAction() {};//dtor
 //	BaseAction(const BaseAction& other);//copy constructor
 //	BaseAction & operator=(const BaseAction& other); //copy assignment operator
 //	BaseAction(BaseAction&& other); //move constructor
