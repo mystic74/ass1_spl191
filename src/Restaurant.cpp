@@ -19,6 +19,7 @@ Restaurant::~Restaurant()//dtor
 {
     this->delete_tables();
     this->delete_actionlog();
+    this->delete_menu();
 }
 
 
@@ -226,8 +227,6 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 
                     Table* currTable = new Table(num_0f_seats);
                     this->tables.insert(this->tables.begin(), currTable);
-
-                    delete currTable;
                 }
 
                // assert(this->tables.size() == ((unsigned int)this->nNumOfTables));
@@ -259,6 +258,7 @@ void Restaurant:: clear()
 {
     delete_tables();
     delete_actionlog();
+    delete_menu();
 }
 
 void Restaurant::delete_tables()
@@ -267,13 +267,11 @@ void Restaurant::delete_tables()
     {
         if (tables[i] != nullptr)
         {
-            cout << "Deleteing Table " << std::to_string(i) << endl;
-            delete tables[i];
+            delete this->tables[i];
             tables[i] = nullptr;
         }
     }
 }
-
 
 void Restaurant::delete_actionlog()
 {
@@ -281,13 +279,23 @@ void Restaurant::delete_actionlog()
     {
         if (actionsLog[i] != nullptr)
         {
-            delete actionsLog[i];
+            delete this->actionsLog[i];
             actionsLog[i] = nullptr;
         }
     }
 }
 
-
+void Restaurant::delete_menu()
+{
+    for (unsigned int i=0; i < actionsLog.size(); i++)
+    {
+        if (actionsLog[i] != nullptr)
+        {
+            delete this->actionsLog[i];
+            actionsLog[i] = nullptr;
+        }
+    }
+}
 
 const std::vector<BaseAction*>& Restaurant::getActionsLog() const
 {
@@ -379,5 +387,6 @@ bool Restaurant::addActionLog(BaseAction *aAction)
     this->actionsLog.push_back(aAction);
     return true;
 }
+
 
 

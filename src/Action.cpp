@@ -119,7 +119,7 @@ void OpenTable::act(Restaurant &restaurant)
 	    restaurant.getTable(tableId)->openTable();
         for (auto custumer : customers)
         {
-	        restaurant.getTable(tableId)->addCustomer(custumer);
+	        restaurant.getTable(tableId)->addCustomer(custumer->Clone());
 	    }
 
         this->complete();
@@ -474,6 +474,8 @@ RestoreResturant::RestoreResturant() : BaseAction()
 
 void RestoreResturant::act(Restaurant &restaurant)
 {
+    restaurant.clear();
+
     new (&restaurant) Restaurant(*backup);
 
     this->complete();
