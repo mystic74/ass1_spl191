@@ -20,6 +20,29 @@ Customer::Customer(std::string c_name, int c_id) : name(c_name),
 
 }
 
+
+Customer:: 	~Customer()//dtor
+{
+
+}
+
+///copy constructor
+Customer:: Customer(const Customer& other): name(other.name)
+                                            ,id(other.id)
+                                            ,ordered(other.ordered)
+{
+    for (unsigned int i=0;i<other.order_list.size();i++)
+    {
+        this->order_list[i]=other.order_list[i];
+    }
+}
+
+
+
+
+
+
+
 std::string Customer::getName() const
 {
     return this->name;

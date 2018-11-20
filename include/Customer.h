@@ -20,7 +20,8 @@ enum CustomerType{
 class Customer{
 public:
     	/// TODO :rule of 5?
-    virtual	~Customer() {};//dtor
+    virtual	~Customer();//dtor
+    Customer(const Customer& other);//copy constructor
 
 
 // TODO TomR : If we don't use a virtual destructor, we can't delete a "Customer"  and expect him to arrive to the right dtor
