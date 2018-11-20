@@ -73,9 +73,9 @@ debug: export CXXFLAGS := $(CXXFLAGS) $(COMPILE_FLAGS) $(DCOMPILE_FLAGS)
 debug: export LDFLAGS := $(LDFLAGS) $(LINK_FLAGS) $(DLINK_FLAGS)
 
 # Build and output paths
-release: export BUILD_PATH := build/release
+release: export BUILD_PATH := build/
 release: export BIN_PATH := bin
-debug: export BUILD_PATH := build/debug
+debug: export BUILD_PATH := build/
 debug: export BIN_PATH := bin
 install: export BIN_PATH := bin/release
 
