@@ -16,9 +16,9 @@ class BaseAction{
 public:
 	/// TODO:rule of 5?
 	virtual ~BaseAction() {};//dtor
-//	BaseAction(const BaseAction& other);//copy constructor
+	BaseAction(const BaseAction& other);//copy constructor
 //	BaseAction & operator=(const BaseAction& other); //copy assignment operator
-//	BaseAction(BaseAction&& other); //move constructor
+	BaseAction(BaseAction&& other); //move constructor
 //	BaseAction&operator=(BaseAction&& other);//move assignment operator
 
     BaseAction();
@@ -43,10 +43,10 @@ private:
 class OpenTable : public BaseAction {
 public:
 	/// rule of 5?
-//	~OpenTable();//dtor
-//	OpenTable(const OpenTable& other);//copy constructor
+	~OpenTable();//dtor
+	OpenTable(const OpenTable& other);//copy constructor
 //	OpenTable & operator=(const OpenTable& other); //copy assignment operator
-//	OpenTable(OpenTable&& other); //move constructor
+	OpenTable(OpenTable&& other); //move constructor
 //	OpenTable &operator=(OpenTable&& other);//move assignment operator
 
 

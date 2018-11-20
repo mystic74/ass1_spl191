@@ -123,16 +123,8 @@ Restaurant:: Restaurant(Restaurant&& other)//move constructor
     other.isOpen=false;
     other.nNumOfTables=0;
 
-    for (auto table: other.tables)
-    {
-        table= nullptr;
-    }
-
-    for (auto action:other.actionsLog)
-    {
-        action= nullptr;
-    }
-
+    other.delete_tables();
+    other.delete_actionlog();
 }
 
 
@@ -181,15 +173,10 @@ Restaurant& Restaurant:: operator=(Restaurant&& other)//move assignment operator
     other.isOpen=false;
     other.nNumOfTables=0;
 
-    for (auto table: other.tables)
-    {
-        table= nullptr;
-    }
+    other.delete_tables();
 
-    for (auto action:other.actionsLog)
-    {
-        action= nullptr;
-    }
+    other.delete_actionlog();
+
 
     return (*this);
 }
@@ -239,6 +226,8 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 
                     Table* currTable = new Table(num_0f_seats);
                     this->tables.insert(this->tables.begin(), currTable);
+
+                    delete currTable;
                 }
 
                // assert(this->tables.size() == ((unsigned int)this->nNumOfTables));
@@ -257,6 +246,8 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
                                           Dish::stringToEnum(tablesVec[DISH_CATAGORY]));
 
                 this->menu.push_back(*currDish);
+
+                delete currDish;
             }
         }
     }
@@ -365,7 +356,6 @@ void Restaurant::start()
     // Fucking amazing mistake.
     while(this->isOpen)
     {
-
         std::getline(std::cin, strInput);
         returnValue = a.generateAction(strInput);
         returnValue->act(*this);

@@ -37,6 +37,7 @@ std::string BaseAction::getErrorMsg() const
 bool BaseAction::setActionLine(std::string stdLine)
 {
     this->actionLine = stdLine;
+
     return true;
 }
 
@@ -148,6 +149,31 @@ BaseAction *OpenTable::Clone()
 {
     return new OpenTable(*this);
 }
+
+OpenTable::~OpenTable()
+{
+    for (unsigned int nIndex = 0;
+         nIndex < this->customers.size();
+         nIndex++)
+    {
+        if (this->customers[nIndex] != nullptr)
+        {
+            delete customers[nIndex];
+            customers[nIndex] = nullptr;
+        }
+    }
+}
+
+OpenTable::OpenTable(const OpenTable &other) :  BaseAction(other),
+                                                tableId(other.tableId)
+{
+    for (unsigned int nIndex  = 0;
+         nIndex < other.customers.size();
+         nIndex++) {
+        this->customers.push_back(other.customers[nIndex]->Clone());
+    }
+}
+
 
 
 /// Generating Order
@@ -405,8 +431,13 @@ BackupRestaurant::BackupRestaurant() : BaseAction()
 
 void BackupRestaurant::act(Restaurant &restaurant)
 {
-     backup = new Restaurant(restaurant);
-     this->complete();
+    if (backup != nullptr)
+    {
+        delete backup;
+        backup = nullptr;
+    }
+    backup = new Restaurant(restaurant);
+    this->complete();
 }
 
 std::string BackupRestaurant::toString() const
@@ -625,4 +656,20 @@ Dish BaseAction:: getDishFromId(int DishId,std:: vector<Dish>menu)
 std::string BaseAction::getActionLine() const
 {
     return this->actionLine;
+}
+
+BaseAction::BaseAction(const BaseAction &other) : actionLine(other.actionLine),
+                                                  errorMsg(other.errorMsg),
+                                                  status(other.status)
+{
+
+}
+
+BaseAction::BaseAction(BaseAction &&other) :    actionLine(other.actionLine),
+                                                errorMsg(other.errorMsg),
+                                                status(other.status)
+{
+    other.actionLine    = "";
+    other.errorMsg      = "";
+    other.status        = PENDING;
 }
