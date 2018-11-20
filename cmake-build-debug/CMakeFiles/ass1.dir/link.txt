@@ -1,1 +1,0 @@
-/usr/bin/c++  -g3 -Wall   CMakeFiles/ass1.dir/src/Customer.cpp.o CMakeFiles/ass1.dir/src/Restaurant.cpp.o CMakeFiles/ass1.dir/src/Action.cpp.o CMakeFiles/ass1.dir/src/ActionFactory.cpp.o CMakeFiles/ass1.dir/src/CustomerFactory.cpp.o CMakeFiles/ass1.dir/src/Table.cpp.o CMakeFiles/ass1.dir/src/Dish.cpp.o CMakeFiles/ass1.dir/Main.cpp.o  -o ass1 
