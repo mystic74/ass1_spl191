@@ -70,8 +70,8 @@ Table & Table:: operator=(const Table& other) //copy assignment operator
 
 Table:: Table(Table&& other)//move constructor
 {
-    this->capacity=other.capacity;
-    this->open=open;
+    this->capacity = other.capacity;
+    this->open = other.open;
     for (auto dish:other.orderList)
     {
         this->orderList.push_back(dish);
@@ -82,17 +82,12 @@ Table:: Table(Table&& other)//move constructor
         this->customersList.push_back(customer);
     }
 
-
     other.capacity=0;
     other.open=false;
 
-
-    for (auto customer: other.customersList)
-    {
-        customer= nullptr;
+    for (unsigned int i = 0; i < other.customersList.size(); ++i) {
+        other.customersList[i] = nullptr;
     }
-
-
 }
 
 Table& Table:: operator=(Table&& other)//move assignment operator
@@ -117,20 +112,12 @@ Table& Table:: operator=(Table&& other)//move assignment operator
             this->customersList.push_back(customer);
         }
 
-
-
         other.capacity=0;
         other.open=false;
 
-
-
-        for (auto customer: other.customersList)
-        {
-            customer= nullptr;
+        for (unsigned int i = 0; i < other.customersList.size(); ++i) {
+            other.customersList[i] = nullptr;
         }
-
-
-
     }
     return (*this);
 
