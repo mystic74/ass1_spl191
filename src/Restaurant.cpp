@@ -19,7 +19,6 @@ Restaurant::~Restaurant()//dtor
 {
     this->delete_tables();
     this->delete_actionlog();
-    this->delete_menu();
 }
 
 
@@ -257,7 +256,6 @@ void Restaurant:: clear()
 {
     delete_tables();
     delete_actionlog();
-    delete_menu();
 }
 
 void Restaurant::delete_tables()
@@ -284,17 +282,7 @@ void Restaurant::delete_actionlog()
     }
 }
 
-void Restaurant::delete_menu()
-{
-    for (unsigned int i=0; i < actionsLog.size(); i++)
-    {
-        if (actionsLog[i] != nullptr)
-        {
-            delete this->actionsLog[i];
-            actionsLog[i] = nullptr;
-        }
-    }
-}
+
 
 const std::vector<BaseAction*>& Restaurant::getActionsLog() const
 {

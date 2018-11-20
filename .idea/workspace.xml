@@ -41,11 +41,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="14182bcf-f673-4edf-bf46-4404a2bf0bc6" name="Default Changelist" comment="copy constructor customer">
+    <list default="true" id="14182bcf-f673-4edf-bf46-4404a2bf0bc6" name="Default Changelist" comment="ActionFactory: table number 2+ digits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ass1.dir/CXX.includecache" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/ass1.dir/CXX.includecache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Action.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Action.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ActionFactory.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ActionFactory.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Restaurant.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Restaurant.cpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
@@ -115,16 +113,16 @@
     <session id="-558559678">
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="cpp" value="11609" />
+          <entry key="cpp" value="11621" />
           <entry key="h" value="475" />
-          <entry key="txt" value="421" />
+          <entry key="txt" value="478" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="Doxygen file" value="8" />
-          <entry key="ObjectiveC" value="12076" />
-          <entry key="PLAIN_TEXT" value="421" />
+          <entry key="ObjectiveC" value="12088" />
+          <entry key="PLAIN_TEXT" value="478" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -171,11 +169,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Restaurant.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="213" column="4" lean-forward="true" selection-start-line="213" selection-start-column="4" selection-end-line="213" selection-end-column="4" />
+            <state relative-caret-position="1275">
+              <caret line="258" selection-start-line="258" selection-end-line="258" />
             </state>
           </provider>
         </entry>
@@ -236,10 +234,10 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ActionFactory.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="149">
+            <state relative-caret-position="-344">
               <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
             </state>
           </provider>
@@ -276,9 +274,9 @@
         <option value="$PROJECT_DIR$/src/Table.cpp" />
         <option value="$PROJECT_DIR$/include/Customer.h" />
         <option value="$PROJECT_DIR$/src/Customer.cpp" />
-        <option value="$PROJECT_DIR$/src/Restaurant.cpp" />
         <option value="$PROJECT_DIR$/src/Action.cpp" />
         <option value="$PROJECT_DIR$/src/ActionFactory.cpp" />
+        <option value="$PROJECT_DIR$/src/Restaurant.cpp" />
       </list>
     </option>
   </component>
@@ -388,7 +386,7 @@
       <workItem from="1542120041480" duration="17033000" />
       <workItem from="1542645056024" duration="4861000" />
       <workItem from="1542722736965" duration="2545000" />
-      <workItem from="1542725678412" duration="1951000" />
+      <workItem from="1542725678412" duration="3670000" />
     </task>
     <task id="LOCAL-00001" summary="WIP : just checking">
       <created>1541406647996</created>
@@ -495,11 +493,18 @@
       <option name="project" value="LOCAL" />
       <updated>1542726084138</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="ActionFactory: table number 2+ digits">
+      <created>1542728056123</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1542728056123</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="61933000" />
+    <option name="totallyTimeSpent" value="63652000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -514,7 +519,7 @@
     <frame x="67" y="25" width="1293" height="639" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28548518" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.28548518" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -526,10 +531,10 @@
       <window_info anchor="bottom" id="TODO" order="6" weight="0.0058708414" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TeamCity" order="8" weight="0.32975295" />
-      <window_info active="true" anchor="bottom" id="Messages" order="9" visible="true" weight="0.37328094" />
+      <window_info anchor="bottom" id="Messages" order="9" weight="0.1021611" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="12" weight="0.17681728" />
+      <window_info anchor="bottom" id="Version Control" order="12" visible="true" weight="0.32023576" />
       <window_info anchor="bottom" id="CMake" order="13" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -557,7 +562,8 @@
     <MESSAGE value="rule of 5 in Table and Restaurant" />
     <MESSAGE value="rule of 2 :)" />
     <MESSAGE value="copy constructor customer" />
-    <option name="LAST_COMMIT_MESSAGE" value="copy constructor customer" />
+    <MESSAGE value="ActionFactory: table number 2+ digits" />
+    <option name="LAST_COMMIT_MESSAGE" value="ActionFactory: table number 2+ digits" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -667,13 +673,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Restaurant.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="213" column="4" lean-forward="true" selection-start-line="213" selection-start-column="4" selection-end-line="213" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Action.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
@@ -683,8 +682,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ActionFactory.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
+        <state relative-caret-position="-344">
           <caret line="19" column="46" selection-start-line="19" selection-start-column="46" selection-end-line="19" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Restaurant.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1275">
+          <caret line="258" selection-start-line="258" selection-end-line="258" />
         </state>
       </provider>
     </entry>
