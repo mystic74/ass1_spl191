@@ -26,7 +26,7 @@ void BaseAction::error(std::string errorMsg)
 
     this->errorMsg = errorMsg;
 
-    std::cout << "ERROR : " + errorMsg << std::endl;
+    std::cout << "Error : " + errorMsg << std::endl;
 }
 
 std::string BaseAction::getErrorMsg() const
@@ -77,11 +77,11 @@ std::string OpenTable::toString() const
 
     if (this->getStatus() == COMPLETED)
     {
-        stat = this->getActionLine() +  " COMPLETED ";
+        stat = this->getActionLine() +  " Completed ";
     }
     else if (this->getStatus() == ERROR)
     {
-        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error " + this->getErrorMsg();
     }
     else
     {
@@ -133,7 +133,7 @@ void Order::act(Restaurant &restaurant)
 {
     if (restaurant.getTable(tableId) == nullptr || !(restaurant.getTable(tableId)->isOpen()))
     {
-        this->error("Table does not exist or isn't open");
+        this->error("Table does not exist or is not open");
         return;
     }
 
@@ -164,10 +164,10 @@ std::string Order::toString() const
 
         std::string stat;
         if (this->getStatus() == COMPLETED) {
-            stat = this->getActionLine() + " COMPLETED";
+            stat = this->getActionLine() + " Completed";
         }
         else if (this->getStatus() == ERROR) {
-            stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+            stat = this->getActionLine() + " Error: " + this->getErrorMsg();
         }
         else {
             stat = "Pending";
@@ -216,26 +216,21 @@ void MoveCustomer::act(Restaurant &restaurant)
     {
         this->error("cannot move customer");
     }
-
     //destination tables has no available seats
     // TODO TomR : <= or <?
     else if (static_cast<unsigned int>(tDstTable->getCapacity()) <= tDstTable->getCustomers().size())
          {
 	        this->error("cannot move customer");
 	 }
-	 // All is well i guess?
+	    // All is well i guess?
     else
         {
             Customer* movingCust = tSrcTable->getCustomer(id);
             if (movingCust == nullptr)
             {
                 this->error("cannot move customer");
+                return;
             }
-
-            // Whats happening here?
-//            std:: vector<int> customerOrder=customerToMove->getOrderList();
-  //          for (auto dish:customerOrder)
-    //            cost=cost+getDishFromId(dish,restaurant.getMenu()).getPrice();
 
             tSrcTable->removeCustomer(id);
             tDstTable->addCustomer(movingCust);
@@ -255,11 +250,11 @@ std::string MoveCustomer::toString() const
 
     if (this->getStatus() == COMPLETED)
     {
-        stat = this->getActionLine() +  " COMPLETED ";
+        stat = this->getActionLine() +  " Completed ";
     }
     else if (this->getStatus() == ERROR)
     {
-        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error " + this->getErrorMsg();
     }
     else
     {
@@ -301,11 +296,11 @@ std::string Close::toString() const
 {
     std:: string stat;
     if (this->getStatus()==COMPLETED) {
-        stat = this->getActionLine() + "COMPLETED";
+        stat = this->getActionLine() + "Completed";
     }
     else if (this->getStatus()==ERROR)
     {
-        stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error: " + this->getErrorMsg();
     }
     else
         stat="Pending";
@@ -346,11 +341,11 @@ std::string PrintActionsLog::toString() const
 
     if (this->getStatus() == COMPLETED)
     {
-        stat = this->getActionLine() +  " COMPLETED ";
+        stat = this->getActionLine() +  " Completed ";
     }
     else if (this->getStatus() == ERROR)
     {
-        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error: " + this->getErrorMsg();
     }
     else
     {
@@ -391,11 +386,11 @@ std::string BackupRestaurant::toString() const
 
     if (this->getStatus() == COMPLETED)
     {
-        stat = this->getActionLine() +  " COMPLETED ";
+        stat = this->getActionLine() +  " Completed ";
     }
     else if (this->getStatus() == ERROR)
     {
-        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error: " + this->getErrorMsg();
     }
     else
     {
@@ -419,11 +414,18 @@ RestoreResturant::RestoreResturant() : BaseAction()
 
 void RestoreResturant::act(Restaurant &restaurant)
 {
-    restaurant.clear();
+    if (backup != nullptr) {
+        restaurant.clear();
 
-    new (&restaurant) Restaurant(*backup);
+        new(&restaurant) Restaurant(*backup);
+        this->complete();
+    }
+    else
+    {
 
-    this->complete();
+        this->error("No backup available");
+    }
+
 }
 
 std::string RestoreResturant::toString() const
@@ -432,11 +434,11 @@ std::string RestoreResturant::toString() const
 
     if (this->getStatus() == COMPLETED)
     {
-        stat = this->getActionLine() +  " COMPLETED ";
+        stat = this->getActionLine() +  " Completed ";
     }
     else if (this->getStatus() == ERROR)
     {
-        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error: " + this->getErrorMsg();
     }
     else
     {
@@ -503,11 +505,11 @@ std::string PrintTableStatus::toString() const
 
     if (this->getStatus() == COMPLETED)
     {
-        stat = this->getActionLine() +  " COMPLETED ";
+        stat = this->getActionLine() +  " Completed ";
     }
     else if (this->getStatus() == ERROR)
     {
-        stat = this->getActionLine() + " ERROR " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error: " + this->getErrorMsg();
     }
     else
     {
@@ -575,11 +577,11 @@ std::string PrintMenu::toString() const
 {
     std:: string stat;
     if (this->getStatus()==COMPLETED) {
-        stat = this->getActionLine() + "COMPLETED";
+        stat = this->getActionLine() + "Completed";
     }
     else if (this->getStatus()==ERROR)
     {
-        stat = this->getActionLine() + "ERROR: " + this->getErrorMsg();
+        stat = this->getActionLine() + " Error: " + this->getErrorMsg();
     }
     else
         stat="Pending";

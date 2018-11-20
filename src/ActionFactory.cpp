@@ -21,13 +21,13 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
 
             if (actionLine.find(" ",firstWord.length()+1)!= std:: string ::npos)
             {
-                int spaces=actionLine.find(" ")-actionLine.find(" ",firstWord.length()+1);
-                std::string str_number_of_tables = actionLine.substr(firstWord.length() + 1,
+                int spaces = actionLine.find(" ",firstWord.length()+1) - actionLine.find(" ");
+                str_number_of_tables = actionLine.substr(firstWord.length() + 1,
                                                                      spaces);
             }
             else
             {
-                std::string str_number_of_tables = actionLine.substr(firstWord.length() + 1);
+                str_number_of_tables = actionLine.substr(firstWord.length() + 1);
 
             }
 
@@ -64,7 +64,7 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
                 int cust_id = std::stoi(actionLine.substr(firstWord.length() + 5 /* +3 for second table, +1 for space, +1 for id */, 1));
                 returnValue = new MoveCustomer(origin_table, dest_table, cust_id);
             }
-            else if (firstWord == "close ")
+            else if (firstWord == "close")
             {
                 returnValue = new Close(std::stoi(str_number_of_tables));
             }
