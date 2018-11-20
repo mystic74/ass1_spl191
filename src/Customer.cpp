@@ -33,7 +33,8 @@ Customer:: Customer(const Customer& other): name(other.name)
 {
     for (unsigned int i=0;i<other.order_list.size();i++)
     {
-        this->order_list[i]=other.order_list[i];
+        order_list.push_back(other.order_list[i]);
+
     }
 }
 
