@@ -21,8 +21,9 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
 
             if (actionLine.find(" ",firstWord.length()+1)!= std:: string ::npos)
             {
+                int spaces=actionLine.find(" ")-actionLine.find(" ",firstWord.length()+1);
                 std::string str_number_of_tables = actionLine.substr(firstWord.length() + 1,
-                                                                     actionLine.find(" ",firstWord.length()+1));
+                                                                     spaces);
             }
             else
             {
