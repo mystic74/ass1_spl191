@@ -346,23 +346,6 @@ void Restaurant::start()
 
     this->openRestaurant();
 
-
-#if 0
-
-    std::ifstream configFile("yuvalsCommands.txt", std::ios::binary);
-    std::string cur_line;
-
-    if (configFile) {
-        while (getline(configFile, cur_line)) {
-            returnValue = a.generateAction(cur_line);
-            returnValue->act(*this);
-            this->addActionLog(returnValue);
-
-        }
-    }
-#endif
-#if 1
-    // Fucking amazing mistake.
     while(this->isOpen)
     {
         std::getline(std::cin, strInput);
@@ -370,8 +353,6 @@ void Restaurant::start()
         returnValue->act(*this);
         this->addActionLog(returnValue);
     }
-#endif
-
 }
 
 void Restaurant::openRestaurant()
