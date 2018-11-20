@@ -195,8 +195,6 @@ MoveCustomer::MoveCustomer(int src, int dst, int customerId) :  BaseAction(),
 
 }
 
-
-// TODO RachelBr : need to finish
 void MoveCustomer::act(Restaurant &restaurant)
 {
     //origin or destination tables doesnt exist
@@ -217,7 +215,6 @@ void MoveCustomer::act(Restaurant &restaurant)
         this->error("cannot move customer");
     }
     //destination tables has no available seats
-    // TODO TomR : <= or <?
     else if (static_cast<unsigned int>(tDstTable->getCapacity()) <= tDstTable->getCustomers().size())
          {
 	        this->error("cannot move customer");
@@ -279,8 +276,6 @@ Close::Close(int id) :  BaseAction(),
 
 void Close::act(Restaurant &restaurant)
 {
-
-    // TODO TomR : Validate everything?
     if (restaurant.getTable(this->tableId)->isOpen() == false)
     {
         this->error("Table is not opened, failed to close table");
@@ -326,9 +321,6 @@ void PrintActionsLog::act(Restaurant &restaurant)
 {
     for (auto currLog : restaurant.getActionsLog())
     {
-        // TODO TomR : Print them?
-
-        // Should work i guess?
         std::cout << currLog->toString() << std::endl; 
     }
 

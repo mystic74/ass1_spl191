@@ -217,7 +217,6 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
 
                 for (const auto strTab : tablesVec)
                 {
-                    // TODO TomR : Check for errors
                     // TODO TomR : And refactor the O in the name.
                     int num_0f_seats = std::stoi(strTab);
 

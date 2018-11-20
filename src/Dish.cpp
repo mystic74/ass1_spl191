@@ -58,7 +58,7 @@ DishType Dish::stringToEnum(std::string strName)
 
     }
 
-    // TODO TomR : How do i return an invalid type? stupid enum.
+    // TODO TomR : Should i check for invalid values?
     return static_cast<DishType> (-1);
 }
 
