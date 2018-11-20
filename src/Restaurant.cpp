@@ -174,7 +174,6 @@ Restaurant& Restaurant:: operator=(Restaurant&& other)//move assignment operator
     other.nNumOfTables=0;
 
     other.delete_tables();
-
     other.delete_actionlog();
 
 
@@ -223,7 +222,7 @@ Restaurant::Restaurant(const std::string &configFilePath) : Restaurant()
                     int num_0f_seats = std::stoi(strTab);
 
                     Table* currTable = new Table(num_0f_seats);
-                    this->tables.insert(this->tables.begin(), currTable);
+                    this->tables.push_back(currTable);
                 }
 
                // assert(this->tables.size() == ((unsigned int)this->nNumOfTables));
@@ -348,7 +347,7 @@ void Restaurant::start()
     this->openRestaurant();
 
 
-#if 1
+#if 0
 
     std::ifstream configFile("yuvalsCommands.txt", std::ios::binary);
     std::string cur_line;
@@ -362,13 +361,11 @@ void Restaurant::start()
         }
     }
 #endif
-#if false
+#if 1
     // Fucking amazing mistake.
     while(this->isOpen)
     {
         std::getline(std::cin, strInput);
-
-
         returnValue = a.generateAction(strInput);
         returnValue->act(*this);
         this->addActionLog(returnValue);
@@ -392,6 +389,7 @@ bool Restaurant::addActionLog(BaseAction *aAction)
     this->actionsLog.push_back(aAction);
     return true;
 }
+
 
 
 

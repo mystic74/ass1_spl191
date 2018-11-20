@@ -416,13 +416,12 @@ void RestoreResturant::act(Restaurant &restaurant)
 {
     if (backup != nullptr) {
         restaurant.clear();
-
+        restaurant.~Restaurant();
         new(&restaurant) Restaurant(*backup);
         this->complete();
     }
     else
     {
-
         this->error("No backup available");
     }
 
