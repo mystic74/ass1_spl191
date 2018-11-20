@@ -14,7 +14,10 @@ Table:: ~Table()//dtor
 {
     for (auto customer: customersList)
     {
-        delete customer;
+        if (customer != nullptr) {
+            delete customer;
+            customer = nullptr;
+        }
     }
 }
 
@@ -31,7 +34,7 @@ Table:: Table(const Table& other)//copy constructor
 
     for (auto customer : other.customersList)
     {
-        this->customersList.push_back(customer);
+        this->customersList.push_back(customer->Clone());
     }
 
 }
@@ -58,7 +61,8 @@ Table & Table:: operator=(const Table& other) //copy assignment operator
 
         for (auto customer: other.customersList)
         {
-            this->customersList.push_back(customer);
+            // This ain't move right? its a copy.
+            this->customersList.push_back(customer->Clone());
         }
     }
     return (*this);
@@ -72,7 +76,6 @@ Table:: Table(Table&& other)//move constructor
 
 Table& Table:: operator=(Table&& other)//move assignment operator
 {
-
 
 }
 

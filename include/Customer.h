@@ -20,8 +20,8 @@ enum CustomerType{
 class Customer{
 public:
 	/// TODO :rule of 5?
-//	~Customer();//dtor
-//	Customer(const Customer& other);//copy constructor
+    virtual	~Customer() {};//dtor
+//  Customer(const Customer& other);//copy constructor
 //	Customer & operator=(const Customer& other); //copy assignment operator
 //	Customer(Customer&& other); //move constructor
 //	Customer&operator=(Customer&& other);//move assignment operator
@@ -37,6 +37,8 @@ public:
     const static std::string enumToString(const CustomerType  nNum);
     const static CustomerType stringToEnum(std::string strName);
     std:: vector<int>  getOrderList()const;
+
+    virtual Customer* Clone() = 0;
 private:
     const std::string name;
     const int id;
@@ -52,6 +54,7 @@ public:
 	VegetarianCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 };
 
@@ -61,6 +64,7 @@ public:
 	CheapCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 };
 
@@ -70,6 +74,7 @@ public:
 	SpicyCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 };
 
@@ -95,6 +100,7 @@ public:
 	AlchoholicCustomer(std::string name, int id);
     std::vector<int> order(const std::vector<Dish> &menu);
     std::string toString() const;
+    Customer* Clone();
 private:
 	std::vector<DishPrice> sortedPricesArray;
 };

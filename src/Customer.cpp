@@ -109,6 +109,10 @@ VegetarianCustomer::VegetarianCustomer(std::string name, int id)
 
 }
 
+Customer *VegetarianCustomer::Clone()
+{
+    return new VegetarianCustomer(*this);
+}
 
 
 CheapCustomer::CheapCustomer(std::string name, int id)
@@ -150,7 +154,10 @@ std::string CheapCustomer::toString() const
     return std:: to_string(this->getId())+" "+this->getName();
 }
 
-
+Customer *CheapCustomer::Clone()
+{
+    return new CheapCustomer(*this);
+}
 
 
 SpicyCustomer::SpicyCustomer(std::string name, int id)
@@ -201,6 +208,10 @@ std::string SpicyCustomer::toString() const
     return std:: to_string(this->getId())+" "+this->getName();
 }
 
+Customer *SpicyCustomer::Clone()
+{
+    return new SpicyCustomer(*this);
+}
 
 
 AlchoholicCustomer::AlchoholicCustomer(std::string name, int id)
@@ -245,4 +256,9 @@ std::vector<int> AlchoholicCustomer::order(const std::vector<Dish> &menu)
 std::string AlchoholicCustomer::toString() const
 {
     return std:: to_string(this->getId())+" "+this->getName();
+}
+
+Customer *AlchoholicCustomer::Clone()
+{
+    return new AlchoholicCustomer(*this);
 }
