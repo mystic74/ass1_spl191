@@ -49,61 +49,6 @@ OpenTable::OpenTable(int id, std::vector<Customer *> &customersList) :  BaseActi
 }
 
 
-//
-//OpenTable:: ~OpenTable()//dtor
-//{
-//    for (auto  customer:customers)
-//    {
-//        delete customer;
-//    }
-//}
-//
-//
-//OpenTable:: OpenTable(const OpenTable& other) : tableId(other.tableId)//copy constructor
-//{
-//
-//    for (auto customer: other.customers)
-//    {
-//        this->customers.push_back(customer);
-//    }
-//}
-//
-//
-//OpenTable & OpenTable:: operator=(const OpenTable& other) //copy assignment operator
-//{
-//    if (this != &other)
-//    {
-//
-//
-//
-//
-//        for (auto customer: this->customers)
-//        {
-//            delete customer;
-//        }
-//
-//        for (auto customer: other.customers)
-//        {
-//            this->customers.push_back(customer);
-//        }
-//    }
-//    return (*this);
-//
-//}
-//
-/////TODO Rachel :finish move constructor and move assignment in Action-OpenTable
-//OpenTable:: OpenTable(OpenTable&& other) //move constructor
-//{
-//
-//}
-//
-//
-//OpenTable & OpenTable:: operator=(OpenTable&& other)//move assignment operator
-//{
-//
-//}
-
-
 
 
 

@@ -190,8 +190,7 @@ Restaurant::Restaurant() :  open(false),
                             params_set{false}
 {
     Restaurant::customer_id = 0;
-    //this->tables = {nullptr};
-    //this->actionsLog = {nullptr};
+
 }
 
 

@@ -17,8 +17,18 @@ BaseAction *LimitedFactory::generateAction(std::string actionLine)
         {
             std::string firstWord = actionLine.substr(0, actionLine.find(" "));
 
-            // What if its more then one digit?
-            std::string str_number_of_tables = actionLine.substr(firstWord.length() + 1,1);
+            std:: string str_number_of_tables;
+
+            if (actionLine.find(" ",firstWord.length()+1)!= std:: string ::npos)
+            {
+                std::string str_number_of_tables = actionLine.substr(firstWord.length() + 1,
+                                                                     actionLine.find(" ",firstWord.length()+1));
+            }
+            else
+            {
+                std::string str_number_of_tables = actionLine.substr(firstWord.length() + 1);
+
+            }
 
             if (firstWord == "open")
             {
